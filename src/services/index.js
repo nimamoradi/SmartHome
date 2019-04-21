@@ -1,1 +1,1 @@
-export { default as App_Service } from './restService';
+export { default as App_Service,viewport  as viewport} from './restService';
