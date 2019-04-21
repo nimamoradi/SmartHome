@@ -1,5 +1,5 @@
 {
-  "name": "ReactNativeStarterKit",
+  "name": "SmartHome",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,9 +15,8 @@
     "react-native": "0.58.5",
     "react-native-config": "^0.11.7",
     "react-native-elements": "^0.19.1",
-    "react-native-fbsdk": "^0.8.0",
     "react-native-navigation": "2.12.0",
-    "react-native-vector-icons": "^6.1.0",
+    "react-native-vector-icons": "^6.4.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",

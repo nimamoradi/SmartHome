@@ -15,16 +15,8 @@ import com.reactnativenavigation.react.ReactGateway;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 
-import com.facebook.CallbackManager;
-import com.facebook.appevents.AppEventsLogger;
 
 public class MainApplication extends NavigationApplication {
-
-    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
-
-    protected static CallbackManager getCallbackManager() {
-        return mCallbackManager;
-    }
 
     @Override
     protected ReactGateway createReactGateway() {
@@ -60,7 +52,5 @@ public class MainApplication extends NavigationApplication {
     public void onCreate() {
         super.onCreate();
 
-        // Use AppEventsLogger to log custom events.
-        AppEventsLogger.activateApp(this);
     }
 }

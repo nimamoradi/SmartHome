@@ -1,5 +1,4 @@
 // @flow
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -8,8 +7,6 @@ import {
   Alert
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { LoginManager, AccessToken } from 'react-native-fbsdk';
-
 import { connectData } from 'src/redux';
 import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
 
@@ -26,30 +23,8 @@ const styles = StyleSheet.create({
 
 class LoginScreen extends PureComponent {
 
-  loginWithFacebook = () => {
-    const { getFacebookUserData, screenType } = this.props;
-
-    LoginManager
-      .logInWithReadPermissions(['public_profile', 'email'])
-      .then((result) => {
-        if (result.isCancelled) {
-          return Promise.reject('Facebook login cancelled.');
-        }
-        return AccessToken.getCurrentAccessToken();
-      })
-      .then((data) => {
-        if (data.accessToken) {
-          getFacebookUserData({ facebookToken: data.accessToken });
-          if (screenType === 'Single') {
-            pushSingleScreenApp();
-          } else {
-            pushTabBasedApp();
-          }
-        } else {
-          Alert.alert('ReactNativeStarterKit', 'Failed to get facebook access token.');
-        }
-      })
-      .catch(() => Alert.alert('ReactNativeStarterKit', 'Something went wrong.'));
+  login = () => {
+    pushSingleScreenApp();
   };
 
   render() {
@@ -59,7 +34,7 @@ class LoginScreen extends PureComponent {
           solid
           name={'facebook'}
           style={styles.button}
-          onPress={this.loginWithFacebook}
+          onPress={this.login}
         >
           Login with Facebook
         </FontAwesome5.Button>
