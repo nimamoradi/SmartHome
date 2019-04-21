@@ -1,4 +1,4 @@
-package com.reactnativestarterkit;
+package com.SmartHome;
 
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 
