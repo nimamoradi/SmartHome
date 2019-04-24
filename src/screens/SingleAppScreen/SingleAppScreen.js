@@ -12,8 +12,9 @@ import { Navigation } from 'react-native-navigation';
 import { get } from 'lodash';
 import Config from 'react-native-config';
 
-import { pushTutorialScreen } from 'src/navigation';
+import { LOGIN_SCREEN, pushTutorialScreen, USER_SETTINGS } from 'src/navigation';
 import { connectData } from 'src/redux';
+import { pushUserSettingScreen } from '../../navigation/Navigation';
 
 const styles = StyleSheet.create({
   flex: {
@@ -35,12 +36,15 @@ class SingleAppScreen extends PureComponent {
     const { data } = this.props;
 
     switch (buttonId) {
-      case 'nav_logout_btn': {
-        pushTutorialScreen();
-        break;
-      }
-      case 'nav_user_btn': {
-        Alert.alert(get(data, 'user.name', 'Unknown User'));
+      case 'nav_tab_menu_btn': {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: USER_SETTINGS,
+            passProps: {
+              userName:'nima'
+            },
+          }
+        });
         break;
       }
       default:
