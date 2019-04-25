@@ -5,5 +5,10 @@ export const Strings = {
 
   option_text1: 'automatic lighting',
   logout: 'Logout',
-  save:"Save"
+  save:"Save",
+
+  main_lighting:'lighting',
+  main_cameras:'cameras',
+  main_power:'power settings',
+  main_thermometer:'thermometer'
 };
