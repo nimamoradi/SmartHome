@@ -4,4 +4,6 @@ export const Strings = {
   welcome_tab3: 'save energy and costs',
 
   option_text1: 'automatic lighting',
+  logout: 'Logout',
+  save:"Save"
 };

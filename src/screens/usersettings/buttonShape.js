@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { vw, vh } from '../../services/viewport';
 
 
@@ -16,7 +16,7 @@ class buttonShape extends React.Component {
     super(props);
     this.state = { isToggled: props.initalState };
     this.onControlChange = this.onControlChange.bind(this);
-    const Icon = this.props.Icon;
+
   }
 
   onControlChange(value) {
@@ -26,40 +26,54 @@ class buttonShape extends React.Component {
   render() {
     return (
       <View style={{
-        width: '100%',
-        padding: 4 * vw,
-        backgroundColor: '#eff0f4',
+        height: 8 * vh,
+        backgroundColor: '#fafafa',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 4 * vh
       }}>
-        <TouchableOpacity style={styles.optionTitle}>
-          <Icon/>
-          <Text>
-            {this.props.button_text}
-          </Text>
-        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          this.props.onPress();
+        }}>
+          <View style={this.buttonStyle()}>
+            <Icon name={this.props.Icon} size={vw * 5} color={this.props.Color}/>
+            <Text style={this.textStyle()}>
+              {this.props.button_text}
+            </Text>
 
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
 
-
+  textStyle = function () {
+    return {
+      fontFamily: 'SFProDisplay-Bold',
+      fontSize: 4 * vw,
+      color: this.props.Color,
+    };
+  };
+  buttonStyle = function () {
+    return {
+      width: 45 * vw,
+      height: 8 * vh,
+      flexDirection: 'row',
+      borderWidth: 0.5,
+      borderRadius: 10,
+      borderColor: this.props.Color,
+      justifyContent: 'center',
+      alignItems: 'center',
+    };
+  };
 }
 
 
 buttonShape.propTypes = {
   button_text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  Icon: PropTypes.isRequired
+  Icon: PropTypes.string.isRequired,
+  Color: PropTypes.string.isRequired,
 };
-const styles = StyleSheet.create({
-  optionTitle: {
-    fontSize: 4 * vw,
-    flex: 1,
-    fontWeight: '400'
-  }
-});
 
 
 export default buttonShape;

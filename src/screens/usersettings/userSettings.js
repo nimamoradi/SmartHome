@@ -4,15 +4,16 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Button
 } from 'react-native';
-
+import ButtonShape from './buttonShape';
 import { connectData } from 'src/redux';
 
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { vw, vh, } from 'src/services/viewport';
 
 import OptionComponet from './optionComponet';
+import { SFProDisplayMedium } from '../../fonts';
+import { Strings as strings } from '../../assets/strings';
 
 const styles = StyleSheet.create({
   flex: {
@@ -29,6 +30,13 @@ class userSettings extends PureComponent {
     return (
       <View style={styles.flex}>
         <EvilIcons name="user" size={28 * vh} color="black"/>
+
+        <SFProDisplayMedium style={{
+          fontSize: 6 * vw,
+          marginBottom: 10 * vh
+        }}>
+          {this.props.userName}
+        </SFProDisplayMedium>
         <OptionComponet
           initalState={false}
           onStateOff={() => {
@@ -45,22 +53,28 @@ class userSettings extends PureComponent {
           }}
           option_text={'test2'}/>
 
+        <View style={{
+          flexDirection: 'row',
+          width: '100%',
+          flex: 1,
+          marginTop: 10 * vh,
+          justifyContent: 'space-evenly'
+        }}>
+          <ButtonShape
+            Color={'green'}
+            button_text={strings.save}
+            Icon='content-save'
+            onPress={() => {
+            }}/>
+          <ButtonShape
+            Color={'red'}
+            button_text={strings.logout}
+            Icon='logout'
+            onPress={() => {
+            }}/>
 
-        <Button
-          onPress={() => {
-          }}
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
 
-        <Button
-          onPress={() => {
-          }}
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
+        </View>
       </View>
     );
   }
