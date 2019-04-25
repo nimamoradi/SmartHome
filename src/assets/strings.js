@@ -10,5 +10,9 @@ export const Strings = {
   main_lighting:'lighting',
   main_cameras:'cameras',
   main_power:'power settings',
-  main_thermometer:'thermometer'
+  main_thermometer:'thermometer',
+
+  main_select_1:'equipment',
+  main_select_2:'rooms',
+
 };

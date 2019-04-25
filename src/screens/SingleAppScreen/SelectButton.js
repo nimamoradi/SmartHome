@@ -33,7 +33,7 @@ class SelectButton extends React.Component {
           this.props.onPress();
         }}>
           <View style={this.buttonStyle(this.props.isSelected)}>
-            <Text style={this.textStyle()}>
+            <Text style={this.textStyle(this.props.isSelected)}>
               {this.props.button_text}
             </Text>
 
@@ -43,12 +43,12 @@ class SelectButton extends React.Component {
     );
   }
 
-  textStyle = function () {
+  textStyle = function (isSelected) {
     return {
       fontFamily: 'SFProDisplay-Bold',
       fontSize: 4 * vw,
       color: 'black',
-
+      fontWeight: (isSelected ? 'bold' : '300'),
     };
   };
   buttonStyle = function (isSelected) {
@@ -69,7 +69,7 @@ class SelectButton extends React.Component {
 SelectButton.propTypes = {
   button_text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  isSelected: PropTypes.isRequired,
+  isSelected: PropTypes.bool.isRequired,
 };
 
 

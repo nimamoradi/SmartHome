@@ -22,7 +22,7 @@ import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
 import { Button } from 'react-native-elements';
-import SelectButton  from './SelectButton';
+import SelectButton from './SelectButton';
 
 const styles = StyleSheet.create({
   flex: {
@@ -90,8 +90,10 @@ class SingleAppScreen extends PureComponent {
           width: '100%'
         }}>
 
-          <SelectButton isSelected={this.state.pageSelect === true} onPress={this.firstPage} button_text='first'/>
-          <SelectButton isSelected={this.state.pageSelect === false} onPress={this.secondPage} button_text='second'/>
+          <SelectButton isSelected={this.state.pageSelect === true} onPress={this.firstPage}
+                        button_text={strings.main_select_1}/>
+          <SelectButton isSelected={this.state.pageSelect === false} onPress={this.secondPage}
+                        button_text={strings.main_select_2}/>
 
         </View>
         {this.state.pageSelect ?
