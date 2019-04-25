@@ -2,51 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  TouchableOpacity,
+  TouchableNativeFeedback,
 
 } from 'react-native';
 import { Text } from 'react-native-elements';
 import { vw, vh } from 'src/services/viewport';
 
 
-class controlPane extends React.Component {
+class SelectButton extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isToggled: props.initalState };
-    this.onControlChange = this.onControlChange.bind(this);
-  }
-
-  onControlChange(value) {
-    this.props.onPress();
   }
 
   render() {
     return (
       <View style={{
-        height: 20 * vh,
+        height: 8 * vh,
         width: 40 * vw,
         borderWidth: 0.75,
-        borderRadius: 10,
+        borderRadius: 8 * vh,
         elevation: vw,
         borderColor: '#038fd3',
-        backgroundColor: '#03a9f4a0',
         justifyContent: 'center',
         alignItems: 'center',
         margin: vw,
         marginTop: 2 * vh,
       }}>
-        <TouchableOpacity onPress={() => {
+        <TouchableNativeFeedback onPress={() => {
           this.props.onPress();
         }}>
-          <View style={this.buttonStyle()}>
-            {this.props.Icon()}
+          <View style={this.buttonStyle(this.props.isSelected)}>
             <Text style={this.textStyle()}>
               {this.props.button_text}
             </Text>
 
           </View>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
       </View>
     );
   }
@@ -55,13 +47,17 @@ class controlPane extends React.Component {
     return {
       fontFamily: 'SFProDisplay-Bold',
       fontSize: 4 * vw,
-      color: this.props.Color,
+      color: 'black',
+
     };
   };
-  buttonStyle = function () {
+  buttonStyle = function (isSelected) {
     return {
-      width: 45 * vw,
-      height: 20 * vh,
+      backgroundColor: (isSelected ? '#2196f3' : '#03a9f4'),
+      width: 40 * vw,
+      borderRadius: 8 * vh,
+      height: 8 * vh,
+      borderWidth: 0.75,
       flexDirection: 'column',
       justifyContent: 'space-evenly',
       alignItems: 'center',
@@ -70,12 +66,11 @@ class controlPane extends React.Component {
 }
 
 
-controlPane.propTypes = {
+SelectButton.propTypes = {
   button_text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  Icon: PropTypes.func.isRequired,
-  Color: PropTypes.string.isRequired,
+  isSelected: PropTypes.isRequired,
 };
 
 
-export default controlPane;
+export default SelectButton;
