@@ -7,8 +7,12 @@ A starter boilerplate for a mobile app using React Native and React Native Navig
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/17483938/51156806-e7c9f480-1885-11e9-8b4e-f079f7200da5.png" /><br>
-
+ <p align="center" >
+        <img width="20%" src="img/1.png">
+        <img width="20%" src="img/2.png">
+        <img width="20%" src="img/3.png">
+        <img width="20%" src="img/4.png">
+    </p>
 ## Requirements
 Before start, make sure you installed:
 - [Android Studio](https://developer.android.com/studio/index.html) : Android Dev Environment
