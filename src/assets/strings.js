@@ -15,4 +15,10 @@ export const Strings = {
   main_select_1:'equipment',
   main_select_2:'rooms',
 
+  main_child:"child room",
+  main_master:"master bedroom",
+  main_living:"living room",
+  main_kitchen:"kitchen",
+
+
 };

@@ -115,23 +115,28 @@ class SingleAppScreen extends PureComponent {
           :
           <View style={styles.list}>
             <ControlPane
-              Color='black' button_text={strings.main_cameras} onPress={() => {
+              Color='black' button_text={strings.main_child} onPress={() => {
             }} Icon={() => <MaterialIcons name="child-friendly" size={16 * vw} color="black"/>}/>
             <ControlPane
-              Color='black' button_text={strings.main_power} onPress={() => {
+              Color='black' button_text={strings.main_living} onPress={() => {
             }} Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw}
                                                    color="black"/>}/>
             <ControlPane
-              Color='black' button_text={strings.main_thermometer} onPress={() => {
+              Color='black' button_text={strings.main_master} onPress={() => {
             }} Icon={() => <FontAwesome name="bed" size={16 * vw} color="black"/>}/>
             <ControlPane
-              Color='black' button_text={strings.main_thermometer} onPress={() => {
+              Color='black' button_text={strings.main_kitchen} onPress={() => {
             }} Icon={() => <MaterialIcons name="restaurant-menu" size={16 * vw} color="black"/>}/>
 
           </View>}
       </View>
     );
   }
+
+  ControlPaneToPage() {
+
+  }
+
 }
 
 SingleAppScreen.propTypes = {

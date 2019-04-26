@@ -5,7 +5,6 @@ import {
   StyleSheet,
   View,
   Image,
-  Text
 } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { Strings } from 'src/assets/strings';
