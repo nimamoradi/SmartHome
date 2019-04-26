@@ -9,7 +9,8 @@ import {
   SingleAppScreen,
   Tab1Screen,
   Tab2Screen,
-  UserSettings
+  UserSettings,
+  lightSettingPage
 } from 'src/screens';
 import { Provider } from 'src/redux';
 
@@ -18,7 +19,8 @@ import {
   LOGIN_SCREEN,
   SINGLE_APP_SCREEN,
   TAB1_SCREEN,
-  TAB2_SCREEN, USER_SETTINGS
+  TAB2_SCREEN, USER_SETTINGS,
+  lightSettingPage
 } from './Screens';
 
 function WrappedComponent(Component) {
@@ -42,5 +44,6 @@ export default function () {
   Navigation.registerComponent(TAB1_SCREEN, () => WrappedComponent(Tab1Screen));
   Navigation.registerComponent(TAB2_SCREEN, () => WrappedComponent(Tab2Screen));
   Navigation.registerComponent(USER_SETTINGS, () => WrappedComponent(UserSettings));
+  Navigation.registerComponent(lightSettingPage, () => WrappedComponent(lightSettingPage));
   console.info('All screens have been registered...');
 }
