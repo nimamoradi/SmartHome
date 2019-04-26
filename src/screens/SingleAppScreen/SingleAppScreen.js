@@ -17,7 +17,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { LOGIN_SCREEN, pushTutorialScreen, USER_SETTINGS } from 'src/navigation';
+import { LIGHT_SETTING_PAGE, USER_SETTINGS } from 'src/navigation';
 import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
@@ -99,8 +99,9 @@ class SingleAppScreen extends PureComponent {
         {this.state.pageSelect ?
           <View style={styles.list}>
             <ControlPane
-              Color='black' button_text={strings.main_lighting} onPress={() => {
-            }} Icon={() => <Entypo name="light-bulb" size={16 * vw} color="black"/>}/>
+              Color='black' button_text={strings.main_lighting}
+              onPress={() => this.ControlPaneToPage()}
+              Icon={() => <Entypo name="light-bulb" size={16 * vw} color="black"/>}/>
             <ControlPane
               Color='black' button_text={strings.main_cameras} onPress={() => {
             }} Icon={() => <Feather name="camera" size={16 * vw} color="black"/>}/>
@@ -134,7 +135,12 @@ class SingleAppScreen extends PureComponent {
   }
 
   ControlPaneToPage() {
-
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: LIGHT_SETTING_PAGE,
+        passProps: {},
+      }
+    });
   }
 
 }

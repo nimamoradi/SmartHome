@@ -11,7 +11,7 @@ import {
 import { Navigation } from 'react-native-navigation';
 import { vw, vh } from 'src/services/viewport';
 
-import { Strings as strings } from 'src/assets/strings';
+import { connectData } from 'src/redux';
 
 const styles = StyleSheet.create({
   flex: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class lightSettingPage extends PureComponent {
+class LightSettingPage extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -31,14 +31,14 @@ class lightSettingPage extends PureComponent {
   render() {
     return (
       <View
-        style={styles.flex}></View>
+        style={styles.flex}><Text>ji</Text></View>
     );
   }
 
 }
 
-lightSettingPage.propTypes = {
+LightSettingPage.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
 
-export default lightSettingPage;
+export default connectData()(LightSettingPage);

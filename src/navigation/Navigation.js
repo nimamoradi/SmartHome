@@ -6,7 +6,9 @@ import {
   WELCOME_SCREEN,
   SINGLE_APP_SCREEN,
   TAB1_SCREEN,
-  TAB2_SCREEN, LOGIN_SCREEN,USER_SETTINGS
+  TAB2_SCREEN,
+  USER_SETTINGS
+
 } from './Screens';
 import registerScreens from './registerScreens';
 
@@ -65,12 +67,13 @@ export function pushTutorialScreen() {
     }
   });
 }
+
 export function pushUserSettingScreen(userName) {
   Navigation.push(USER_SETTINGS, {
     component: {
       name: USER_SETTINGS,
       passProps: {
-        userName:userName
+        userName: userName
       },
     }
   });
