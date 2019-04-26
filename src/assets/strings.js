@@ -7,7 +7,7 @@ export const Strings = {
   logout: 'Logout',
   save:"Save",
 
-  main_lighting:'LightSettingPage',
+  main_lighting:'Lighting',
   main_cameras:'cameras',
   main_power:'power settings',
   main_thermometer:'thermometer',

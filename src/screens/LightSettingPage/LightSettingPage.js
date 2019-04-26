@@ -5,17 +5,17 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Text,
-  Alert
+  Image
 } from 'react-native';
-import { Navigation } from 'react-native-navigation';
-import { vw, vh } from 'src/services/viewport';
+
+import MySlider from './slider';
 
 import { connectData } from 'src/redux';
 
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
+    backgroundColor: 'white',
     flexDirection: 'column',
   },
 });
@@ -26,12 +26,18 @@ class LightSettingPage extends PureComponent {
     super(props);
   }
 
-
-  //
   render() {
     return (
       <View
-        style={styles.flex}><Text>ji</Text></View>
+        style={styles.flex}>
+        <Image
+          style={{ alignSelf: 'center' }}
+          source={require('assets/images/lamp.png')}
+        />
+        <MySlider light={10} title='Bedroom' slider_Init={true}/>
+        <MySlider light={5} title='Livingroom' slider_Init={true}/>
+        <MySlider light={0} title='Kichen' slider_Init={false}/>
+      </View>
     );
   }
 
