@@ -107,7 +107,7 @@ class WelcomeScreen extends PureComponent {
           <View style={styles.center}>
             <SimpleLineIcons name="camera" size={32 * vh} color="cyan"/>
             <SFProDisplayMedium style={styles.logoTitle}>
-              {Strings.welcome_tab3}
+              {Strings.welcome_tab2}
             </SFProDisplayMedium>
           </View>
           <View style={styles.center}>
