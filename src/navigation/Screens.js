@@ -8,3 +8,5 @@ export const TAB2_SCREEN = 'SmartHome.Tab2Screen';
 export const USER_SETTINGS = 'SmartHome.userSettings';
 export const LIGHT_SETTING_PAGE = 'SmartHome.LightSettingPage';
 export const CAMERA_PAGE = 'SmartHome.cameraPage';
+export const THERMO_PAGE = 'SmartHome.ThermoPage';
+export const CALENDER_PAGE = 'SmartHome.CalenderPage';

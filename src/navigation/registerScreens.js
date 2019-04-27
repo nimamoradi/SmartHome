@@ -11,7 +11,9 @@ import {
   Tab2Screen,
   UserSettings,
   LightSettingPage,
-  CameraPage
+  CameraPage,
+  CalenderPage,
+  ThermoPage
 } from 'src/screens';
 import { Provider } from 'src/redux';
 
@@ -22,8 +24,12 @@ import {
   TAB1_SCREEN,
   TAB2_SCREEN,
   USER_SETTINGS,
-  LIGHT_SETTING_PAGE, CAMERA_PAGE
+  LIGHT_SETTING_PAGE,
+  CAMERA_PAGE,
+  THERMO_PAGE,
+  CALENDER_PAGE
 } from './Screens';
+
 
 function WrappedComponent(Component) {
   return function inject(props) {
@@ -48,5 +54,7 @@ export default function () {
   Navigation.registerComponent(USER_SETTINGS, () => WrappedComponent(UserSettings));
   Navigation.registerComponent(LIGHT_SETTING_PAGE, () => WrappedComponent(LightSettingPage));
   Navigation.registerComponent(CAMERA_PAGE, () => WrappedComponent(CameraPage));
+  Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));
+  Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));
   console.info('All screens have been registered...');
 }
