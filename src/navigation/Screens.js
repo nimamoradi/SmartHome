@@ -7,3 +7,4 @@ export const TAB1_SCREEN = 'SmartHome.Tab1Screen';
 export const TAB2_SCREEN = 'SmartHome.Tab2Screen';
 export const USER_SETTINGS = 'SmartHome.userSettings';
 export const LIGHT_SETTING_PAGE = 'SmartHome.LightSettingPage';
+export const CAMERA_PAGE = 'SmartHome.cameraPage';

@@ -17,7 +17,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { LIGHT_SETTING_PAGE, USER_SETTINGS } from 'src/navigation';
+import { CAMERA_PAGE, LIGHT_SETTING_PAGE, USER_SETTINGS } from 'src/navigation';
 import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
@@ -103,8 +103,8 @@ class SingleAppScreen extends PureComponent {
               onPress={() => this.ControlPaneToPage()}
               Icon={() => <Entypo name="light-bulb" size={16 * vw} color="black"/>}/>
             <ControlPane
-              Color='black' button_text={strings.main_cameras} onPress={() => {
-            }} Icon={() => <Feather name="camera" size={16 * vw} color="black"/>}/>
+              Color='black' button_text={strings.main_cameras} onPress={() => this.toCameraPage()}
+              Icon={() => <Feather name="camera" size={16 * vw} color="black"/>}/>
             <ControlPane
               Color='black' button_text={strings.main_power} onPress={() => {
             }} Icon={() => <MaterialCommunityIcons name="power-settings" size={16 * vw}
@@ -143,6 +143,14 @@ class SingleAppScreen extends PureComponent {
     });
   }
 
+  toCameraPage() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: CAMERA_PAGE,
+        passProps: {},
+      }
+    });
+  }
 }
 
 SingleAppScreen.propTypes = {

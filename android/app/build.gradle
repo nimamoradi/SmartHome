@@ -153,6 +153,7 @@ configurations.all {
 }
 
 dependencies {
+    implementation project(':react-native-svg')
     implementation project(':react-native-config')
     implementation project(':react-native-vector-icons')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
