@@ -93,7 +93,7 @@ export default class CircleSlider extends Component {
                 fontSize={this.props.textSize}
                 fill={this.props.textColor}
                 textAnchor="middle"
-          >{this.props.onValueChange(this.state.angle) + ''}</Text>
+          >{this.props.onValueChange(Math.round((this.state.angle) / 5)) + ''}</Text>
         </G>
       </Svg>
     );

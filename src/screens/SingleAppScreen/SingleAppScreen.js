@@ -153,7 +153,7 @@ class SingleAppScreen extends PureComponent {
     Navigation.push(this.props.componentId, {
       component: {
         name: THERMO_PAGE,
-        passProps: {},
+        passProps: { outside: 32 },
       }
     });
   }

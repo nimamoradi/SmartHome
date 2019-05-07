@@ -20,5 +20,7 @@ export const Strings = {
   main_living:"living room",
   main_kitchen:"kitchen",
 
+  thermo_Inside:'Inside',
+  thermo_Outside:'Outside',
 
 };
