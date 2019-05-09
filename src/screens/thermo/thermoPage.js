@@ -51,14 +51,24 @@ class thermoPage extends PureComponent {
     return (
       <View
         style={styles.flex}>
+        <View style={{
+          position: 'absolute',
+          top: 25 * vh,
+        }}>
+          <Text style={{
+            color: 'orange',
+            fontSize: 20 * vw
+          }}>{Math.round(this.state.temperature / 5) + ' c'}</Text>
+        </View>
         <CircleSlider
+          onValueChange={(x) =>
+            this.setState({ temperature: x })
+          }
           value={this.state.temperature}
           min={30}
           max={270}
           textColor='red'
-        >
-
-        </CircleSlider>
+        />
         <View
           style={{
             marginTop: 8 * vh,

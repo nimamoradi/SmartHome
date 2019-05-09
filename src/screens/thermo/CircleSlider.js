@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { PanResponder, View, Dimensions } from 'react-native';
+import { PanResponder, Dimensions } from 'react-native';
 import Svg, { Path, Circle, G, Text } from 'react-native-svg';
+import Entypo from 'react-native-vector-icons/Entypo';
+import { vw } from '../../services/viewport';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class CircleSlider extends Component {
   constructor(props) {
@@ -9,6 +12,10 @@ export default class CircleSlider extends Component {
     this.state = {
       angle: this.props.value,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.props.onValueChange(this.state.angle);
   }
 
   componentWillMount() {
@@ -88,12 +95,15 @@ export default class CircleSlider extends Component {
                   cy={bR}
                   fill={this.props.meterColor}
                   {...this._panResponder.panHandlers}/>
-          <Text x={bR}
-                y={bR + (this.props.textSize / 2)}
-                fontSize={this.props.textSize}
-                fill={this.props.textColor}
-                textAnchor="middle"
-          >{this.props.onValueChange(Math.round((this.state.angle) / 5)) + ''}</Text>
+          <Entypo name={'arrow-with-circle-down'}
+                  style={{
+                    left: endCoord.x - bR,
+                    top: endCoord.y - bR
+                  }}
+
+                  size={8 * vw}
+                  color="black"/>
+
         </G>
       </Svg>
     );
