@@ -7,7 +7,11 @@ import {
   View,
 
 } from 'react-native';
+import {
+  LineChart,
+  BarChart,
 
+} from 'react-native-chart-kit';
 import { connectData } from 'src/redux';
 
 import { vw, vh } from 'src/services/viewport';
@@ -17,7 +21,6 @@ import { Calendar } from 'react-native-calendars';
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-    margin: 4 * vw,
     backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'center'
@@ -34,8 +37,41 @@ class calenderPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      temperature: 30
+      temperature: 30,
+      line_chart_data: {
+        datasets: [{
+          data: [35, 55, 70, 92, 108],
+          color: (opacity = 1) => `rgba(20, 250, 30, ${opacity})`,
+          strokeWidth: 2 // optional
+        }]
+      },
+      bar_chart_data: {
+        labels: ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'],
+        datasets: [{
+          data: [35, 20, 25, 45, 22, 16, 10]
+        }]
+      }
     };
+    this.stateTransition = this.stateTransition.bind(this);
+  }
+
+  stateTransition(chart_data) {
+    this.setState({
+      bar_chart_data: {
+        labels: chart_data.bar_chart_data.labels,
+        datasets: [{
+          data: chart_data.bar_chart_data.data,
+        }]
+      },
+      line_chart_data: {
+        datasets: [{
+          data: chart_data.line_chart_data.data,
+          color: (opacity = 1) => `rgba(20, 250, 30, ${opacity})`,
+          strokeWidth: 2 // optional
+        }]
+      },
+    });
+
   }
 
   render() {
@@ -46,7 +82,7 @@ class calenderPage extends PureComponent {
           style={{
             borderWidth: 1,
             borderColor: 'gray',
-            height: 50 * vh,
+            height: 49 * vh,
             width: 90 * vw,
             borderRadius: 10 * vw,
             elevation: 2 * vw
@@ -74,6 +110,32 @@ class calenderPage extends PureComponent {
           markingType={'multi-dot'}
         />
 
+        <BarChart
+          data={this.state.bar_chart_data}
+          width={95 * vw}
+          height={25 * vh}
+          yAxisLabel={'$'}
+          chartConfig={{
+            backgroundColor: 'white',
+            backgroundGradientFrom: 'white',
+            backgroundGradientTo: 'white',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          }}
+        />
+        <LineChart
+          data={this.state.line_chart_data}
+          width={95 * vw}
+          height={15 * vh}
+          chartConfig={{
+            backgroundColor: 'white',
+            backgroundGradientFrom: 'white',
+            backgroundGradientTo: 'white',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          }}
+          bezier
+        />
       </View>
     );
   }
