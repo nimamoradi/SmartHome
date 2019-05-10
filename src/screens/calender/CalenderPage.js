@@ -38,6 +38,7 @@ class calenderPage extends PureComponent {
     super(props);
     this.state = {
       temperature: 30,
+      date: null,
       line_chart_data: {
         datasets: [{
           data: [35, 55, 70, 92, 108],
@@ -79,6 +80,10 @@ class calenderPage extends PureComponent {
       <View
         style={styles.flex}>
         <Calendar
+          onDayPress={(day) => {
+            this.setState({ date: day });
+            alert(JSON.stringify(day));
+          }}
           style={{
             borderWidth: 1,
             borderColor: 'gray',
@@ -90,12 +95,12 @@ class calenderPage extends PureComponent {
           theme={{
             textSectionTitleColor: '#b6c1cd',
             selectedDayBackgroundColor: '#00adf5',
-            selectedDayTextColor: '#ffffff',
+            selectedDayTextColor: '#27ff18',
             todayTextColor: 'green',
             dayTextColor: '#2d4150',
             textDisabledColor: '#d9e1e8',
             dotColor: '#00adf5',
-            selectedDotColor: '#ffffff',
+            selectedDotColor: '#27ff18',
             arrowColor: 'orange',
             monthTextColor: '#000',
             textDayFontFamily: 'monospace',
@@ -109,33 +114,36 @@ class calenderPage extends PureComponent {
 
           markingType={'multi-dot'}
         />
-
-        <BarChart
-          data={this.state.bar_chart_data}
-          width={95 * vw}
-          height={25 * vh}
-          yAxisLabel={'$'}
-          chartConfig={{
-            backgroundColor: 'white',
-            backgroundGradientFrom: 'white',
-            backgroundGradientTo: 'white',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          }}
-        />
-        <LineChart
-          data={this.state.line_chart_data}
-          width={95 * vw}
-          height={15 * vh}
-          chartConfig={{
-            backgroundColor: 'white',
-            backgroundGradientFrom: 'white',
-            backgroundGradientTo: 'white',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          }}
-          bezier
-        />
+        {this.state.date !== null ?
+          <View>
+            <BarChart
+              data={this.state.bar_chart_data}
+              width={95 * vw}
+              height={25 * vh}
+              yAxisLabel={'$'}
+              chartConfig={{
+                backgroundColor: 'white',
+                backgroundGradientFrom: 'white',
+                backgroundGradientTo: 'white',
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              }}
+            />
+            <LineChart
+              data={this.state.line_chart_data}
+              width={95 * vw}
+              height={15 * vh}
+              chartConfig={{
+                backgroundColor: 'white',
+                backgroundGradientFrom: 'white',
+                backgroundGradientTo: 'white',
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              }}
+              bezier
+            />
+          </View>
+          : null}
       </View>
     );
   }
