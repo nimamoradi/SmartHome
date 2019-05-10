@@ -13,7 +13,8 @@ import {
   LightSettingPage,
   CameraPage,
   CalenderPage,
-  ThermoPage
+  ThermoPage,
+  SelectModal
 } from 'src/screens';
 import { Provider } from 'src/redux';
 
@@ -27,7 +28,8 @@ import {
   LIGHT_SETTING_PAGE,
   CAMERA_PAGE,
   THERMO_PAGE,
-  CALENDER_PAGE
+  CALENDER_PAGE,
+  SELECT_MODAL_PAGE
 } from './Screens';
 
 
@@ -56,5 +58,6 @@ export default function () {
   Navigation.registerComponent(CAMERA_PAGE, () => WrappedComponent(CameraPage));
   Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));
   Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));
+  Navigation.registerComponent(SELECT_MODAL_PAGE, () => WrappedComponent(SelectModal));
   console.info('All screens have been registered...');
 }
