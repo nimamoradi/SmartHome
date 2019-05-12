@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
   },
   value: {
     fontWeight: '500',
@@ -116,7 +117,9 @@ class calenderPage extends PureComponent {
           markingType={'multi-dot'}
         />
         {this.state.date !== null ?
-          <View>
+          <View style={{
+            justifyContent: 'space-between'
+          }}>
             <BarChart
               data={this.state.bar_chart_data}
               width={95 * vw}
