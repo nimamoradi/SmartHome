@@ -5,22 +5,24 @@ export const Strings = {
 
   option_text1: 'automatic LightSettingPage',
   logout: 'Logout',
-  save:"Save",
+  save: 'Save',
 
-  main_lighting:'Lighting',
-  main_cameras:'cameras',
-  main_power:'power settings',
-  main_thermometer:'thermometer',
+  main_lighting: 'Lighting',
+  main_cameras: 'cameras',
+  main_power: 'power settings',
+  main_thermometer: 'thermometer',
 
-  main_select_1:'equipment',
-  main_select_2:'rooms',
+  main_select_1: 'equipment',
+  main_select_2: 'rooms',
 
-  main_child:"child room",
-  main_master:"master bedroom",
-  main_living:"living room",
-  main_kitchen:"kitchen",
+  main_child: 'child room',
+  main_master: 'master bedroom',
+  main_living: 'living room',
+  main_kitchen: 'kitchen',
 
-  thermo_Inside:'Inside',
-  thermo_Outside:'Outside',
+  thermo_Inside: 'Inside',
+  thermo_Outside: 'Outside',
+
+  appliances: 'select appliances',
 
 };

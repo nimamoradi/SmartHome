@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Text,
-  Alert
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { vw, vh } from 'src/services/viewport';
@@ -22,7 +20,8 @@ import {
   CAMERA_PAGE,
   LIGHT_SETTING_PAGE,
   THERMO_PAGE,
-  USER_SETTINGS
+  USER_SETTINGS,
+  SELECT_MODAL_PAGE,
 } from 'src/navigation';
 import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
@@ -122,7 +121,7 @@ class SingleAppScreen extends PureComponent {
           :
           <View style={styles.list}>
             <ControlPane
-              Color='black' button_text={strings.main_child} onPress={() => {
+              Color='black' button_text={strings.main_child} onPress={() => {this.toCardSelect()
             }} Icon={() => <MaterialIcons name="child-friendly" size={16 * vw} color="black"/>}/>
             <ControlPane
               Color='black' button_text={strings.main_living} onPress={() => {
@@ -154,6 +153,15 @@ class SingleAppScreen extends PureComponent {
       component: {
         name: THERMO_PAGE,
         passProps: { outside: 32 },
+      }
+    });
+  }
+
+  toCardSelect() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: SELECT_MODAL_PAGE,
+        passProps: {},
       }
     });
   }
