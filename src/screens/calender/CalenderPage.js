@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-
+  Text
 } from 'react-native';
 import {
   LineChart,
@@ -84,10 +84,11 @@ class calenderPage extends PureComponent {
             this.setState({ date: day });
             alert(JSON.stringify(day));
           }}
+          hideExtraDays={true}
           style={{
             borderWidth: 1,
             borderColor: 'gray',
-            height: 49 * vh,
+            height: 35 * vh,
             width: 90 * vw,
             borderRadius: 10 * vw,
             elevation: 2 * vw
