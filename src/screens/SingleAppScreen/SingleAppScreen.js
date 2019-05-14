@@ -9,9 +9,7 @@ import {
 import { Navigation } from 'react-native-navigation';
 import { vw, vh } from 'src/services/viewport';
 
-import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -30,7 +28,8 @@ import { Strings as strings } from 'src/assets/strings';
 import SelectButton from './SelectButton';
 import Thermal from 'src/components/thermal';
 import Camera from 'src/components/Camera';
-import Light from '../../components/Light';
+import Light from 'src/components/Light';
+import PowerSetting from 'src/components/PowerSetting';
 
 const styles = StyleSheet.create({
   flex: {
@@ -110,10 +109,7 @@ class SingleAppScreen extends PureComponent {
           <View style={styles.list}>
             <Light onPress={this.ControlPaneToPage}/>
             <Camera onPress={this.toCameraPage}/>
-            <ControlPane
-              Color='black' button_text={strings.main_power} onPress={() => this.toDate()}
-              Icon={() => <MaterialCommunityIcons name="power-settings" size={16 * vw}
-                                                  color="black"/>}/>
+            <PowerSetting onPress={this.toDate}/>
             <Thermal onPress={this.toThermal}/>
           </View>
           :
@@ -166,7 +162,7 @@ class SingleAppScreen extends PureComponent {
   }
 
   toDate() {
-    Navigation.push(this.props.componentId, {
+    Navigation.push(context.props.componentId, {
       component: {
         name: CALENDER_PAGE,
         passProps: {},

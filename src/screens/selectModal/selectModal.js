@@ -19,9 +19,10 @@ import {
   SELECT_MODAL_PAGE,
   THERMO_PAGE
 } from 'src/navigation/Screens';
-import Thermal from '../../components/thermal';
-import Camera from '../../components/Camera';
-import Light from '../../components/Light';
+import Thermal from 'src/components/thermal';
+import Camera from 'src/components/Camera';
+import Light from 'src/components/Light';
+import PowerSetting from 'src/components/PowerSetting';
 
 const styles = StyleSheet.create({
   flex: {
@@ -49,7 +50,7 @@ class selectModal extends PureComponent {
     context = this;
     this.state = {
       appliances: {
-        thermal: true,
+        thermal: false,
         camera: true,
         light: true,
         power: true
@@ -94,7 +95,7 @@ class selectModal extends PureComponent {
       }}/>);
     }
     if (config.power) {
-      viewList.push(<Thermal onPress={() => {
+      viewList.push(<PowerSetting onPress={() => {
       }}/>);
     }
 
