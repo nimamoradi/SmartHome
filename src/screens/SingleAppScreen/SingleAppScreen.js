@@ -30,6 +30,7 @@ import { Strings as strings } from 'src/assets/strings';
 import SelectButton from './SelectButton';
 import Thermal from 'src/components/thermal';
 import Camera from 'src/components/Camera';
+import Light from '../../components/Light';
 
 const styles = StyleSheet.create({
   flex: {
@@ -107,10 +108,7 @@ class SingleAppScreen extends PureComponent {
         </View>
         {this.state.pageSelect ?
           <View style={styles.list}>
-            <ControlPane
-              Color='black' button_text={strings.main_lighting}
-              onPress={() => this.ControlPaneToPage()}
-              Icon={() => <Entypo name="light-bulb" size={16 * vw} color="black"/>}/>
+            <Light onPress={this.ControlPaneToPage}/>
             <Camera onPress={this.toCameraPage}/>
             <ControlPane
               Color='black' button_text={strings.main_power} onPress={() => this.toDate()}
@@ -141,7 +139,7 @@ class SingleAppScreen extends PureComponent {
   }
 
   ControlPaneToPage() {
-    Navigation.push(this.props.componentId, {
+    Navigation.push(context.props.componentId, {
       component: {
         name: LIGHT_SETTING_PAGE,
         passProps: {},

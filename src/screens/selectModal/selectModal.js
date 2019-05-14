@@ -21,6 +21,7 @@ import {
 } from 'src/navigation/Screens';
 import Thermal from '../../components/thermal';
 import Camera from '../../components/Camera';
+import Light from '../../components/Light';
 
 const styles = StyleSheet.create({
   flex: {
@@ -88,7 +89,8 @@ class selectModal extends PureComponent {
       }}/>);
     }
     if (config.light) {
-      viewList.push(<Thermal onPress={() => {
+
+      viewList.push(<Light onPress={() => {
       }}/>);
     }
     if (config.power) {
