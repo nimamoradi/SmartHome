@@ -20,6 +20,7 @@ import {
   THERMO_PAGE
 } from 'src/navigation/Screens';
 import Thermal from '../../components/thermal';
+import Camera from '../../components/Camera';
 
 const styles = StyleSheet.create({
   flex: {
@@ -83,7 +84,7 @@ class selectModal extends PureComponent {
       }}/>);
     }
     if (config.camera) {
-      viewList.push(<Thermal onPress={() => {
+      viewList.push(<Camera onPress={() => {
       }}/>);
     }
     if (config.light) {

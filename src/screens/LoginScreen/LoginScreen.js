@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Alert
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { connectData } from 'src/redux';

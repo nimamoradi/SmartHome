@@ -28,7 +28,8 @@ import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
 
 import SelectButton from './SelectButton';
-import Thermal from '../../components/thermal';
+import Thermal from 'src/components/thermal';
+import Camera from 'src/components/Camera';
 
 const styles = StyleSheet.create({
   flex: {
@@ -42,7 +43,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
-let context ;
+let context;
+
 class SingleAppScreen extends PureComponent {
 
   constructor(props) {
@@ -109,9 +111,7 @@ class SingleAppScreen extends PureComponent {
               Color='black' button_text={strings.main_lighting}
               onPress={() => this.ControlPaneToPage()}
               Icon={() => <Entypo name="light-bulb" size={16 * vw} color="black"/>}/>
-            <ControlPane
-              Color='black' button_text={strings.main_cameras} onPress={() => this.toCameraPage()}
-              Icon={() => <Feather name="camera" size={16 * vw} color="black"/>}/>
+            <Camera onPress={this.toCameraPage}/>
             <ControlPane
               Color='black' button_text={strings.main_power} onPress={() => this.toDate()}
               Icon={() => <MaterialCommunityIcons name="power-settings" size={16 * vw}
@@ -177,7 +177,7 @@ class SingleAppScreen extends PureComponent {
   }
 
   toCameraPage() {
-    Navigation.push(this.props.componentId, {
+    Navigation.push(context.props.componentId, {
       component: {
         name: CAMERA_PAGE,
         passProps: {},
