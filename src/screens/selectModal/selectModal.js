@@ -9,68 +9,93 @@ import {
 } from 'react-native';
 
 import { connectData } from 'src/redux';
-import Card from 'src/components/Card';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { vw } from 'src/services/viewport';
 import { Strings as strings } from 'src/assets/strings';
 import { Navigation } from 'react-native-navigation';
 
-import { CALENDER_PAGE, SELECT_MODAL_PAGE } from 'src/navigation/Screens';
+import {
+  CALENDER_PAGE,
+  LIGHT_SETTING_PAGE,
+  SELECT_MODAL_PAGE,
+  THERMO_PAGE
+} from 'src/navigation/Screens';
+import Thermal from '../../components/thermal';
 
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   button: {
     backgroundColor: '#039893'
+  },
+  center: {
+    flex: 1,
+    margin: 4 * vw,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
+let context;
 
 class selectModal extends PureComponent {
   constructor(props) {
     super(props);
-    alert(this.props.componentId);
+    context = this;
+    this.state = {
+      appliances: {
+        thermal: true,
+        camera: true,
+        light: true,
+        power: true
+      }
+    }
+    ;
   }
 
   render() {
-    return <View style={styles.flex}>
+    return <View style={styles.center}>
       <Text style={{ fontSize: 6 * vw }}>{strings.appliances}</Text>
 
+      <View style={styles.flex}>
 
-      <Card title='hi 1 '
-            Icon={() => <MaterialIcons name="child-friendly" size={16 * vw} color="black"/>}
-            goAppliances={() => {
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: CALENDER_PAGE,
-                  passProps: {},
-                }
-              });
-            }}/>
-      <Card title='hi 2 '
-            Icon={() => <MaterialIcons name="restaurant-menu" size={16 * vw} color="black"/>}
-            goAppliances={() => {
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: CALENDER_PAGE,
-                  passProps: {},
-                }
-              });
-            }}/>
-      <Card title='hi 2 '
-            Icon={() => <MaterialIcons name="restaurant-menu" size={16 * vw} color="black"/>}
-            goAppliances={() => {
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: CALENDER_PAGE,
-                  passProps: {},
-                }
-              });
-            }}/>
+        {this.makeCard(this.state.appliances)}
+      </View>
     </View>;
 
+  }
+
+  makeCard(config) {
+    let viewList = [];
+    if (config.thermal) {
+      viewList.push(<Thermal onPress={() => {
+
+        Navigation.push(context.props.componentId, {
+          component: {
+            name: THERMO_PAGE,
+            passProps: { outside: 32 },
+          }
+        });
+
+      }}/>);
+    }
+    if (config.camera) {
+      viewList.push(<Thermal onPress={() => {
+      }}/>);
+    }
+    if (config.light) {
+      viewList.push(<Thermal onPress={() => {
+      }}/>);
+    }
+    if (config.power) {
+      viewList.push(<Thermal onPress={() => {
+      }}/>);
+    }
+
+    return viewList;
   }
 }
 

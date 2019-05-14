@@ -28,6 +28,7 @@ import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
 
 import SelectButton from './SelectButton';
+import Thermal from '../../components/thermal';
 
 const styles = StyleSheet.create({
   flex: {
@@ -41,11 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
-
+let context ;
 class SingleAppScreen extends PureComponent {
 
   constructor(props) {
     super(props);
+    context = this;
     this.state = { pageSelect: true };
     Navigation.events()
       .bindComponent(this);
@@ -114,14 +116,13 @@ class SingleAppScreen extends PureComponent {
               Color='black' button_text={strings.main_power} onPress={() => this.toDate()}
               Icon={() => <MaterialCommunityIcons name="power-settings" size={16 * vw}
                                                   color="black"/>}/>
-            <ControlPane
-              Color='black' button_text={strings.main_thermometer} onPress={() => this.toThermal()}
-              Icon={() => <FontAwesome name="thermometer-half" size={16 * vw} color="black"/>}/>
+            <Thermal onPress={this.toThermal}/>
           </View>
           :
           <View style={styles.list}>
             <ControlPane
-              Color='black' button_text={strings.main_child} onPress={() => {this.toCardSelect()
+              Color='black' button_text={strings.main_child} onPress={() => {
+              this.toCardSelect();
             }} Icon={() => <MaterialIcons name="child-friendly" size={16 * vw} color="black"/>}/>
             <ControlPane
               Color='black' button_text={strings.main_living} onPress={() => {
@@ -149,7 +150,7 @@ class SingleAppScreen extends PureComponent {
   }
 
   toThermal() {
-    Navigation.push(this.props.componentId, {
+    Navigation.push(context.props.componentId, {
       component: {
         name: THERMO_PAGE,
         passProps: { outside: 32 },
