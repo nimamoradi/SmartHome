@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
 
 class LoginScreen extends PureComponent {
 
-  login = () => {
+  login = (email, password) => {
+    alert(email);
     pushSingleScreenApp();
   };
 
