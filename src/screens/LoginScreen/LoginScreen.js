@@ -4,19 +4,28 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
+  KeyboardAvoidingView,
+  Image
 } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import { connectData } from 'src/redux';
 import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
+import LoginForm from './LoginForm';
+import { vh, vw } from 'src/services/viewport';
 
 const styles = StyleSheet.create({
-  flex: {
+  container: {
     flex: 1,
+  },
+  formContainer: {
     alignItems: 'center',
+    flexGrow: 2,
     justifyContent: 'center'
   },
-  button: {
-    backgroundColor: '#039893'
+  logo: {
+    width: 45 * vw,
+    height: 32 * vh,
+    resizeMode: 'contain'
   }
 });
 
@@ -28,15 +37,16 @@ class LoginScreen extends PureComponent {
 
   render() {
     return (
-      <View style={styles.flex}>
-        <FontAwesome5.Button
-          solid
-          name={'facebook'}
-          style={styles.button}
-          onPress={this.login}
-        >
-          Login with Facebook
-        </FontAwesome5.Button>
+      <View behavior="padding" style={styles.container}>
+
+        <View style={styles.formContainer}>
+          <Image resizeMode="contain" style={styles.logo}
+                 source={require('src/assets/images/welcome-logo.jpg')}/>
+
+        </View>
+        <View style={styles.formContainer}>
+          <LoginForm onButtonPress={this.login}/>
+        </View>
       </View>
     );
   }
