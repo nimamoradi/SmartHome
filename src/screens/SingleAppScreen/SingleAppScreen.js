@@ -50,7 +50,10 @@ class SingleAppScreen extends PureComponent {
   constructor(props) {
     super(props);
     context = this;
-    this.state = { pageSelect: true };
+    this.state = {
+      pageSelect: true,
+      shouldNavigate: true
+    };
     Navigation.events()
       .bindComponent(this);
     this.firstPage = this.firstPage.bind(this);
@@ -135,48 +138,68 @@ class SingleAppScreen extends PureComponent {
   }
 
   ControlPaneToPage() {
-    Navigation.push(context.props.componentId, {
-      component: {
-        name: LIGHT_SETTING_PAGE,
-        passProps: {},
-      }
-    });
+    if (context.state.shouldNavigate) {
+      Navigation.push(context.props.componentId, {
+        component: {
+          name: LIGHT_SETTING_PAGE,
+          passProps: {},
+        }
+      })
+        .then(() => context.setState({ shouldNavigate: true }));
+      context.setState({ shouldNavigate: false });
+    }
   }
 
   toThermal() {
-    Navigation.push(context.props.componentId, {
-      component: {
-        name: THERMO_PAGE,
-        passProps: { outside: 32 },
-      }
-    });
+    if (context.state.shouldNavigate) {
+      Navigation.push(context.props.componentId, {
+        component: {
+          name: THERMO_PAGE,
+          passProps: { outside: 32 },
+        }
+      })
+        .then(() => context.setState({ shouldNavigate: true }));
+      context.setState({ shouldNavigate: false });
+    }
   }
 
   toCardSelect() {
-    Navigation.push(this.props.componentId, {
-      component: {
-        name: SELECT_MODAL_PAGE,
-        passProps: {},
-      }
-    });
+    if (context.state.shouldNavigate) {
+      Navigation.push(this.props.componentId, {
+        component: {
+          name: SELECT_MODAL_PAGE,
+          passProps: {},
+        }
+      })
+        .then(() => context.setState({ shouldNavigate: true }));
+      context.setState({ shouldNavigate: false });
+    }
   }
 
   toDate() {
-    Navigation.push(context.props.componentId, {
-      component: {
-        name: CALENDER_PAGE,
-        passProps: {},
-      }
-    });
+    if (context.state.shouldNavigate) {
+      Navigation.push(context.props.componentId, {
+        component: {
+          name: CALENDER_PAGE,
+          passProps: {},
+        }
+      })
+        .then(() => context.setState({ shouldNavigate: true }));
+      context.setState({ shouldNavigate: false });
+    }
   }
 
   toCameraPage() {
-    Navigation.push(context.props.componentId, {
-      component: {
-        name: CAMERA_PAGE,
-        passProps: {},
-      }
-    });
+    if (context.state.shouldNavigate) {
+      Navigation.push(context.props.componentId, {
+        component: {
+          name: CAMERA_PAGE,
+          passProps: {},
+        }
+      })
+        .then(() => context.setState({ shouldNavigate: true }));
+      context.setState({ shouldNavigate: false });
+    }
   }
 }
 
