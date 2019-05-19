@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  KeyboardAvoidingView,
+  Alert,
   Image
 } from 'react-native';
-import Config from 'react-native-config'
+import { pushSingleScreenApp } from 'src/navigation';
+import { fetch } from 'fetch-awesome';
+import Config from 'react-native-config';
 import { connectData } from 'src/redux';
-import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
+
 import LoginForm from './LoginForm';
 import { vh, vw } from 'src/services/viewport';
 
@@ -32,8 +34,55 @@ const styles = StyleSheet.create({
 class LoginScreen extends PureComponent {
 
   login = (email, password) => {
-    alert(Config.API_URL);
-    pushSingleScreenApp();
+    if (email === '' || password === '') {
+      Alert.alert(
+        'missing param',
+        'password and username are required',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed')
+          },
+        ],
+        { cancelable: true },
+      );
+      return;
+    }
+    fetch(Config.API_URL + 'auth/login', {
+      method: 'POST',
+      timeout: 10000,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'password': password,
+        'username': email,
+      })
+    })
+      .then((response) => {
+          alert(JSON.stringify(response));
+          if (response.ok) {
+            pushSingleScreenApp();
+          } else if (response.status === 401) {
+            Alert.alert(
+              'error',
+              'wrong password or username',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => console.log('OK Pressed')
+                },
+              ],
+              { cancelable: true },
+            );
+          }
+        }
+      )
+      .catch((error) => {
+        alert(error);
+      });
+
   };
 
   render() {

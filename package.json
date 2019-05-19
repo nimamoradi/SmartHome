@@ -9,6 +9,7 @@
     "android-build-prod": "export ENVFILE=.env && cd android && ./gradlew app:assembleRelease && cd .."
   },
   "dependencies": {
+    "fetch-awesome": "^2.0.3",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "16.6.3",
