@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Image
 } from 'react-native';
-
+import Config from 'react-native-config'
 import { connectData } from 'src/redux';
 import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
 import LoginForm from './LoginForm';
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 class LoginScreen extends PureComponent {
 
   login = (email, password) => {
-    alert(email);
+    alert(Config.API_URL);
     pushSingleScreenApp();
   };
 
