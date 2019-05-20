@@ -71,9 +71,8 @@ class WelcomeScreen extends PureComponent {
       .then(value => {
         if (value !== null && value === Config.true_boolean) {
           pushSingleScreenApp();
-        } else {
-          this.setState({ waiting: false });
         }
+        this.setState({ waiting: false });
       });
   }
 

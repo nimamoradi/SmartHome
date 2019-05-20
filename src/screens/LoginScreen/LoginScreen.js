@@ -70,14 +70,26 @@ class LoginScreen extends PureComponent {
       })
     })
       .then((response) => {
+          this.setState({ spinner: false });
           if (response.ok) {
             AsyncStorage.setItem(Config.isLogin, Config.true_boolean);
             pushSingleScreenApp();
           } else if (response.status === 401) {
-            this.setState({ spinner: false });
             Alert.alert(
               'error',
               'wrong password or username',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => console.log('OK Pressed')
+                },
+              ],
+              { cancelable: true },
+            );
+          } else {
+            Alert.alert(
+              'error',
+              'unknown error',
               [
                 {
                   text: 'OK',

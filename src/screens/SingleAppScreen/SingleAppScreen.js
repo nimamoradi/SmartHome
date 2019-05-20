@@ -3,8 +3,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Alert,
+  FlatList,
   StyleSheet,
   View,
+  BackHandler,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { vw, vh } from 'src/services/viewport';
@@ -19,7 +22,7 @@ import {
   LIGHT_SETTING_PAGE,
   THERMO_PAGE,
   USER_SETTINGS,
-  SELECT_MODAL_PAGE,
+  SELECT_MODAL_PAGE, pushSingleScreenApp,
 } from 'src/navigation';
 import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
@@ -30,6 +33,9 @@ import Thermal from 'src/components/thermal';
 import Camera from 'src/components/Camera';
 import Light from 'src/components/Light';
 import PowerSetting from 'src/components/PowerSetting';
+import Spinner from 'src/components/Spinner';
+import { fetch } from 'fetch-awesome';
+import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
   flex: {
@@ -52,12 +58,17 @@ class SingleAppScreen extends PureComponent {
     context = this;
     this.state = {
       pageSelect: true,
-      shouldNavigate: true
+      shouldNavigate: true,
+      loading: true,
+      rooms: [],
+      dataReady: false
     };
     Navigation.events()
       .bindComponent(this);
     this.firstPage = this.firstPage.bind(this);
     this.secondPage = this.secondPage.bind(this);
+
+    this.loadRooms();
   }
 
   firstPage() {
@@ -92,49 +103,145 @@ class SingleAppScreen extends PureComponent {
     }
   }
 
+  loadRooms() {
+    context.setState({ loading: true });
+    fetch(Config.API_URL + 'homes/rooms', {
+      method: 'GET',
+      timeout: 10000,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': '',
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          context.setState({
+            dataReady: true,
+          });
+          return response.json();
+        } else {
+          context.setState({
+            loading: true,
+          });
+          Alert.alert(
+            'error',
+            'unknown error',
+            [
+              {
+                text: 'Exit',
+                onPress: () => BackHandler.exitApp()
+              },
+              {
+                text: 'retry',
+                onPress: () => context.loadRooms()
+              },
+            ],
+            { cancelable: false },
+          );
+        }
+      })
+      .then(function (res) {
+        context.setState({
+          rooms: [
+            {
+              'id': 44,
+              'name': 'amin main room',
+              'icon': 'RoomGood',
+              'image': 'home/aminsroom.jpg'
+            }, {
+              'id': 41,
+              'name': 'main room 2',
+              'icon': 'RoomGood',
+              'image': 'home/aminsroom.jpg'
+            }
+          ],
+          loading: false,
+        });
+      })
+
+      .catch((error) => {
+        this.setState({ loading: false });
+        Alert.alert(
+          'error',
+          'network error',
+          [
+            {
+              text: 'Exit',
+              onPress: () => BackHandler.exitApp()
+            },
+            {
+              text: 'retry',
+              onPress: () => context.loadRooms()
+            },
+          ],
+          { cancelable: false },
+        );
+      });
+  }
+
   //
   render() {
-    return (
-      <View>
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          width: '100%'
-        }}>
+    if (this.state.dataReady) {
+      return <View style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+      }}>
+        <Spinner
+          loading={this.state.loading}
+          textLabel={'Loading...'}
+          textStyle={{ color: '#FFF' }}
+        />
+      </View>;
+    } else {
+      return (
+        <View>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            width: '100%'
+          }}>
 
-          <SelectButton isSelected={this.state.pageSelect === true} onPress={this.firstPage}
-                        button_text={strings.main_select_1}/>
-          <SelectButton isSelected={this.state.pageSelect === false} onPress={this.secondPage}
-                        button_text={strings.main_select_2}/>
+            <SelectButton isSelected={this.state.pageSelect === true} onPress={this.firstPage}
+                          button_text={strings.main_select_1}/>
+            <SelectButton isSelected={this.state.pageSelect === false} onPress={this.secondPage}
+                          button_text={strings.main_select_2}/>
 
-        </View>
-        {this.state.pageSelect ?
-          <View style={styles.list}>
-            <Light onPress={this.ControlPaneToPage}/>
-            <Camera onPress={this.toCameraPage}/>
-            <PowerSetting onPress={this.toDate}/>
-            <Thermal onPress={this.toThermal}/>
           </View>
-          :
-          <View style={styles.list}>
-            <ControlPane
-              Color='black' button_text={strings.main_child} onPress={() => {
-              this.toCardSelect();
-            }} Icon={() => <MaterialIcons name="child-friendly" size={16 * vw} color="black"/>}/>
-            <ControlPane
-              Color='black' button_text={strings.main_living} onPress={() => {
-            }} Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw}
-                                                   color="black"/>}/>
-            <ControlPane
-              Color='black' button_text={strings.main_master} onPress={() => {
-            }} Icon={() => <FontAwesome name="bed" size={16 * vw} color="black"/>}/>
-            <ControlPane
-              Color='black' button_text={strings.main_kitchen} onPress={() => {
-            }} Icon={() => <MaterialIcons name="restaurant-menu" size={16 * vw} color="black"/>}/>
+          {this.state.pageSelect ?
+            <View style={styles.list}>
+              <Light onPress={this.ControlPaneToPage}/>
+              <Camera onPress={this.toCameraPage}/>
+              <PowerSetting onPress={this.toDate}/>
+              <Thermal onPress={this.toThermal}/>
+            </View>
+            :
 
-          </View>}
-      </View>
-    );
+            <FlatList
+              style={{ flexDirection: 'column', }}
+              numColumns={2}
+              data={this.state.rooms}
+              extraData={this.state}
+              keyExtractor={this._keyExtractor}
+              renderItem={this._renderItem}
+            />
+
+          }
+        </View>
+      );
+    }
+  }
+
+  _keyExtractor(item) {
+    return item.id;
+  }
+
+  _renderItem(item) {
+    return <ControlPane
+      Color='black' button_text={item.name} onPress={() => {
+    }} Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw}
+                                           color="black"/>}/>;
   }
 
   ControlPaneToPage() {
