@@ -71,6 +71,8 @@ class WelcomeScreen extends PureComponent {
       .then(value => {
         if (value !== null && value === Config.true_boolean) {
           pushSingleScreenApp();
+        } else {
+          this.setState({ waiting: false });
         }
       });
   }
@@ -96,7 +98,6 @@ class WelcomeScreen extends PureComponent {
   render() {
     if (this.state.waiting) {
       return <View style={styles.flex}><Spinner
-        visible={this.state.waiting}
         textContent={'Loading...'}
         textStyle={{ color: '#FFF' }}
       /></View>;
