@@ -74,7 +74,7 @@ class LoginScreen extends PureComponent {
             AsyncStorage.setItem(Config.isLogin, Config.true_boolean);
             pushSingleScreenApp();
           } else if (response.status === 401) {
-            this.setState({ spinner: true });
+            this.setState({ spinner: false });
             Alert.alert(
               'error',
               'wrong password or username',
@@ -90,7 +90,7 @@ class LoginScreen extends PureComponent {
         }
       )
       .catch((error) => {
-        this.setState({ spinner: true });
+        this.setState({ spinner: false });
         Alert.alert(
           'error',
           'network error',
