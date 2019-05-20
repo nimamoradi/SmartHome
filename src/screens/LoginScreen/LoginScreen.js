@@ -5,12 +5,13 @@ import {
   StyleSheet,
   View,
   Alert,
-  Image
+  Image, AsyncStorage
 } from 'react-native';
 import { pushSingleScreenApp } from 'src/navigation';
 import { fetch } from 'fetch-awesome';
 import Config from 'react-native-config';
 import { connectData } from 'src/redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import LoginForm from './LoginForm';
 import { vh, vw } from 'src/services/viewport';
@@ -28,10 +29,17 @@ const styles = StyleSheet.create({
     width: 45 * vw,
     height: 32 * vh,
     resizeMode: 'contain'
-  }
+  },
+  spinnerTextStyle: {
+    color: '#FFF'
+  },
 });
 
 class LoginScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { spinner: false };
+  }
 
   login = (email, password) => {
     if (email === '' || password === '') {
@@ -48,6 +56,7 @@ class LoginScreen extends PureComponent {
       );
       return;
     }
+    this.setState({ spinner: true });
     fetch(Config.API_URL + 'auth/login', {
       method: 'POST',
       timeout: 10000,
@@ -61,10 +70,11 @@ class LoginScreen extends PureComponent {
       })
     })
       .then((response) => {
-          alert(JSON.stringify(response));
           if (response.ok) {
+            AsyncStorage.setItem(Config.isLogin, Config.true_boolean);
             pushSingleScreenApp();
           } else if (response.status === 401) {
+            this.setState({ spinner: true });
             Alert.alert(
               'error',
               'wrong password or username',
@@ -80,7 +90,18 @@ class LoginScreen extends PureComponent {
         }
       )
       .catch((error) => {
-        alert(error);
+        this.setState({ spinner: true });
+        Alert.alert(
+          'error',
+          'network error',
+          [
+            {
+              text: 'OK',
+              onPress: () => console.log('OK Pressed')
+            },
+          ],
+          { cancelable: true },
+        );
       });
 
   };
@@ -88,7 +109,11 @@ class LoginScreen extends PureComponent {
   render() {
     return (
       <View behavior="padding" style={styles.container}>
-
+        <Spinner
+          visible={this.state.spinner}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
         <View style={styles.formContainer}>
           <Image resizeMode="contain" style={styles.logo}
                  source={require('src/assets/images/welcome-logo.jpg')}/>

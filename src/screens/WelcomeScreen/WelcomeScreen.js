@@ -4,20 +4,22 @@ import React, { PureComponent } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
+  Image, AsyncStorage,
 } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { Strings } from 'src/assets/strings';
 import { Button } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 
-import { LOGIN_SCREEN } from 'src/navigation';
+import { LOGIN_SCREEN, pushSingleScreenApp } from 'src/navigation';
 import { SFProDisplayMedium } from 'src/fonts';
 import {
   IndicatorViewPager,
   PagerDotIndicator
 } from 'rn-viewpager';
 import { vw, vh, } from 'src/services/viewport';
+import Config from 'react-native-config';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const styles = StyleSheet.create({
   flex: {
@@ -62,6 +64,16 @@ const styles = StyleSheet.create({
 });
 
 class WelcomeScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { waiting: true };
+    AsyncStorage.getItem(Config.isLogin)
+      .then(value => {
+        if (value !== null && value === Config.true_boolean) {
+          pushSingleScreenApp();
+        }
+      });
+  }
 
   handleGetStartAction = (screenType) => {
     Navigation.push(this.props.componentId, {
@@ -82,49 +94,57 @@ class WelcomeScreen extends PureComponent {
   };
 
   render() {
-    return (
-      <View style={styles.flex}>
+    if (this.state.waiting) {
+      return <View style={styles.flex}><Spinner
+        visible={this.state.waiting}
+        textContent={'Loading...'}
+        textStyle={{ color: '#FFF' }}
+      /></View>;
+    } else {
+      return (
+        <View style={styles.flex}>
 
-        <IndicatorViewPager
-          style={{
-            flex: 1,
-            backgroundColor: 'white',
+          <IndicatorViewPager
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
 
-          }}
-          indicator={this._renderDotIndicator()}
-        >
-          <View style={styles.center}>
-            <Image
-              style={styles.logo}
-              source={require('assets/images/welcome-logo.jpg')}
-            />
+            }}
+            indicator={this._renderDotIndicator()}
+          >
+            <View style={styles.center}>
+              <Image
+                style={styles.logo}
+                source={require('assets/images/welcome-logo.jpg')}
+              />
 
-            <SFProDisplayMedium style={styles.logoTitle}>
-              {Strings.welcome_tab1}
-            </SFProDisplayMedium>
-          </View>
-          <View style={styles.center}>
-            <SimpleLineIcons name="camera" size={32 * vh} color="cyan"/>
-            <SFProDisplayMedium style={styles.logoTitle}>
-              {Strings.welcome_tab2}
-            </SFProDisplayMedium>
-          </View>
-          <View style={styles.center}>
-            <SimpleLineIcons name="energy" size={32 * vh} color="orange"/>
-            <SFProDisplayMedium style={styles.logoTitle}>
-              {Strings.welcome_tab3}
-            </SFProDisplayMedium>
-          </View>
-        </IndicatorViewPager>
+              <SFProDisplayMedium style={styles.logoTitle}>
+                {Strings.welcome_tab1}
+              </SFProDisplayMedium>
+            </View>
+            <View style={styles.center}>
+              <SimpleLineIcons name="camera" size={32 * vh} color="cyan"/>
+              <SFProDisplayMedium style={styles.logoTitle}>
+                {Strings.welcome_tab2}
+              </SFProDisplayMedium>
+            </View>
+            <View style={styles.center}>
+              <SimpleLineIcons name="energy" size={32 * vh} color="orange"/>
+              <SFProDisplayMedium style={styles.logoTitle}>
+                {Strings.welcome_tab3}
+              </SFProDisplayMedium>
+            </View>
+          </IndicatorViewPager>
 
-        <Button
-          onPress={() => this.handleGetStartAction('Tab')}
-          title={'start'}
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonTitle}
-        />
-      </View>
-    );
+          <Button
+            onPress={() => this.handleGetStartAction('Tab')}
+            title={'start'}
+            buttonStyle={styles.button}
+            titleStyle={styles.buttonTitle}
+          />
+        </View>
+      );
+    }
   }
 
   _renderDotIndicator() {

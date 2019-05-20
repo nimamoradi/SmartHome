@@ -4435,6 +4435,15 @@ fbjs@^1.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
+fetch-awesome@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/fetch-awesome/-/fetch-awesome-2.0.3.tgz#ac067a25e16411d66037306b1b375e231c481918"
+  integrity sha512-0R79QHrfdO1lyd78s9IIfbdqMKgF6AiLMf9KJQuZg1vkpbiokrxgVkTh6xRM1ni5oysJtsJx/G2984NGq2AJ/g==
+  dependencies:
+    react-native-module-check "^2.6.2"
+    react-native-module-guard "^2.6.2"
+    yarn "^1.7.0"
+
 figures@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-2.0.0.tgz#3ab1a2d2a62c8bfb431a0c94cb797a2fce27c962"
@@ -8067,6 +8076,28 @@ react-native-elements@^0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-loading-spinner-overlay@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-1.0.1.tgz#07f85a072b6f7d05b8749668cd626df4cc330347"
+  integrity sha512-njZZWs+cgyq6Ni7tkYEowMmuAuHVljuH4CqTWA0plNOfSzZhEcrW209y7WcgHjRWz0RvvEYF5oWGT8DWtTq8bA==
+  dependencies:
+    prop-types "^15.6.2"
+
+react-native-module-check@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-module-check/-/react-native-module-check-2.6.2.tgz#c4112e6cd0837f71631fd302386da6dbdd2b8414"
+  integrity sha512-Thm+dfELhc7FZ86Hsoxc25gtQa65C+Z9BXhi9rxDcnRKwCJ+DoCED5jdfvFm8g03WzYkqGojncZ1lNZ+c/sfUg==
+  dependencies:
+    invariant "^2.2.2"
+    warning "^3.0.0"
+
+react-native-module-guard@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-module-guard/-/react-native-module-guard-2.6.2.tgz#44d7f85d6bf778cc597c97c7d228938d8e2db388"
+  integrity sha512-jXY25yZVYf2VpYU/vC7lsZ4b/9avP7otrZVQ/OQRf39KasxRYaIZTmR69LYlguM7x9Vo3VXe27zor9fibwfi1A==
+  dependencies:
+    warning "^3.0.0"
+
 react-native-navigation@2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-2.12.0.tgz#3b845a976a0e1b79b6caff185bb109fdb60889f2"
@@ -9695,6 +9726,13 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  integrity sha1-MuU3fLVy3kqwR1O9+IIcAe1gW3w=
+  dependencies:
+    loose-envify "^1.0.0"
+
 watch@~0.18.0:
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/watch/-/watch-0.18.0.tgz#28095476c6df7c90c963138990c0a5423eb4b986"
@@ -10066,3 +10104,8 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+yarn@^1.7.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.16.0.tgz#5701b58ac555ff91f7b889b7d791b3dc86f8f999"
+  integrity sha512-cfemyGlnWKA1zopUUgebTPf8C4WkPIZ+TJmklwcEAJ4u6oWPtJeAzrsamaGGh/+b1XWe8W51yzAImC4AWbWR1g==
