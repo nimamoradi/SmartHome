@@ -12,7 +12,6 @@ import {
   BarChart,
 
 } from 'react-native-chart-kit';
-import { connectData } from 'src/redux';
 
 import { vw, vh } from 'src/services/viewport';
 import { Calendar } from 'react-native-calendars';
@@ -158,4 +157,4 @@ calenderPage.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
 
-export default connectData()(calenderPage);
+export default (calenderPage);

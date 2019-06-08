@@ -8,7 +8,6 @@ import {
 
 } from 'react-native';
 
-import { connectData } from 'src/redux';
 import { vw } from 'src/services/viewport';
 import { Strings as strings } from 'src/assets/strings';
 import { Navigation } from 'react-native-navigation';
@@ -105,4 +104,4 @@ class selectModal extends PureComponent {
 
 selectModal.propTypes = {};
 
-export default connectData()(selectModal);
+export default (selectModal);

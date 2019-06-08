@@ -16,7 +16,7 @@ import {
   ThermoPage,
   SelectModal
 } from 'src/screens';
-import { Provider } from 'src/redux';
+
 
 import {
   WELCOME_SCREEN,
@@ -36,11 +36,9 @@ import {
 function WrappedComponent(Component) {
   return function inject(props) {
     const EnhancedComponent = () => (
-      <Provider>
         <Component
           {...props}
         />
-      </Provider>
     );
 
     return <EnhancedComponent />;

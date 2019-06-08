@@ -24,7 +24,6 @@ import {
   USER_SETTINGS,
   SELECT_MODAL_PAGE, pushSingleScreenApp,
 } from 'src/navigation';
-import { connectData } from 'src/redux';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
 
@@ -314,4 +313,4 @@ SingleAppScreen.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
 
-export default connectData()(SingleAppScreen);
+export default (SingleAppScreen);

@@ -10,7 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { vw, vh } from 'src/services/viewport';
 
-import { connectData } from 'src/redux';
 
 const styles = StyleSheet.create({
   flex: {
@@ -59,4 +58,4 @@ cameraPage.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
 
-export default connectData()(cameraPage);
+export default (cameraPage);

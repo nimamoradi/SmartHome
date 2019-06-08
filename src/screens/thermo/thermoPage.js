@@ -9,7 +9,6 @@ import {
   Image
 } from 'react-native';
 
-import { connectData } from 'src/redux';
 import CircleSlider from './CircleSlider';
 import { vw, vh } from 'src/services/viewport';
 import { Strings } from 'src/assets/strings';
@@ -109,4 +108,4 @@ thermoPage.propTypes = {
   outside: PropTypes.number.isRequired
 };
 
-export default connectData()(thermoPage);
+export default (thermoPage);

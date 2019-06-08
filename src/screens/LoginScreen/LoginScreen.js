@@ -10,7 +10,7 @@ import {
 import { pushSingleScreenApp } from 'src/navigation';
 import { fetch } from 'fetch-awesome';
 import Config from 'react-native-config';
-import { connectData } from 'src/redux';
+
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import LoginForm from './LoginForm';
@@ -144,4 +144,4 @@ LoginScreen.propTypes = {
   screenType: PropTypes.oneOf(['Single', 'Tab']).isRequired
 };
 
-export default connectData()(LoginScreen);
+export default (LoginScreen);

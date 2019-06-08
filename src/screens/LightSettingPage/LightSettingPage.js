@@ -10,7 +10,6 @@ import {
 
 import MySlider from './slider';
 
-import { connectData } from 'src/redux';
 
 const styles = StyleSheet.create({
   flex: {
@@ -47,4 +46,4 @@ LightSettingPage.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
 
-export default connectData()(LightSettingPage);
+export default (LightSettingPage);

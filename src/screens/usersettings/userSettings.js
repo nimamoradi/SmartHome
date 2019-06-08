@@ -6,7 +6,6 @@ import {
   View,
 } from 'react-native';
 import ButtonShape from './buttonShape';
-import { connectData } from 'src/redux';
 
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { vw, vh, } from 'src/services/viewport';
@@ -84,4 +83,4 @@ userSettings.propTypes = {
   userName: PropTypes.string.isRequired,
 };
 
-export default connectData()(userSettings);
+export default userSettings;
