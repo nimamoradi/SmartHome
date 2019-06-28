@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
 
+import { store } from 'src/redux';
 import {
   WelcomeScreen,
   LoginScreen,
@@ -36,18 +38,18 @@ import {
 function WrappedComponent(Component) {
   return function inject(props) {
     const EnhancedComponent = () => (
-        <Component
-          {...props}
-        />
+      <Component
+        {...props}
+      />
     );
 
-    return <EnhancedComponent />;
+    return <EnhancedComponent/>;
   };
 }
 
 export default function () {
   Navigation.registerComponent(WELCOME_SCREEN, () => WrappedComponent(WelcomeScreen));
-  Navigation.registerComponent(LOGIN_SCREEN, () => WrappedComponent(LoginScreen));
+  Navigation.registerComponentWithRedux(LOGIN_SCREEN, () => WrappedComponent(LoginScreen), Provider, store);
   Navigation.registerComponent(SINGLE_APP_SCREEN, () => WrappedComponent(SingleAppScreen));
   Navigation.registerComponent(TAB1_SCREEN, () => WrappedComponent(Tab1Screen));
   Navigation.registerComponent(TAB2_SCREEN, () => WrappedComponent(Tab2Screen));
