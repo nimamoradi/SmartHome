@@ -14,6 +14,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import LoginForm from './LoginForm';
 import { vh, vw } from 'src/services/viewport';
 import { connect } from 'react-redux';
+import { error_missing_field } from '../../Constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,10 +43,51 @@ class LoginScreen extends PureComponent {
   }
 
   login = (email, password) => {
-    context.props.doLogin(email, password);
-    alert(JSON.stringify(context.props));
+    context.props.doLogin(email, password,connect.missingParam,connect.networkError,connect.successFetch);
   };
+  networkError(){
+    alert('i')
+  }
+  missingParam() {
+    Alert.alert(
+      'error',
+      'email and password should not be empty',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed')
+        },
+      ],
+      { cancelable: true },
+    );
+  }
 
+  wrongAuth() {
+    Alert.alert(
+      'error',
+      'email or password is wrong',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed')
+        },
+      ],
+      { cancelable: true },
+    );
+  }
+  successFetch(userData) {
+    Alert.alert(
+      'ok',
+      'everything is ok',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed')
+        },
+      ],
+      { cancelable: true },
+    );
+  }
   render() {
     let { hasError, isLogged, isLoading } = this.props;
     return (
@@ -79,9 +121,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  alert(JSON.stringify(dispatch));
   return {
-    doLogin: (username, password) => dispatch(LoginActions.login(username, password))
+    doLogin: (username, password,missingParam,networkError,successFetch) => dispatch(LoginActions.login(username, password,missingParam,networkError,successFetch))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

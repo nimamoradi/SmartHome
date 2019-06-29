@@ -1,34 +1,26 @@
 // @flow
 
-import { set, isEmpty } from 'lodash';
+import { API } from '../redux/action/ActionTypes';
 
-export default async function App_Service({ url, method, params }) {
-  const headers = {};
-
-  set(headers, 'Accept', 'application/json');
-  set(headers, 'Content-Type', 'application/json');
-
-  const reqBody = {
-    method,
-    headers
+export default function apiAction({
+                     url = '',
+                     method = 'GET',
+                     data = null,
+                     onSuccess = () => {
+                     },
+                     onFailure = () => {
+                     },
+                     label = ''
+                   }) {
+  return {
+    type: API,
+    payload: {
+      url,
+      method,
+      data,
+      onSuccess,
+      onFailure,
+      label
+    }
   };
-
-  if (!isEmpty(params)) {
-    reqBody.body = JSON.stringify(params);
-  }
-
-  return fetch(url, reqBody)
-    .then(response => response.json())
-    .then((data) => {
-      return {
-        result: 'ok',
-        data
-      };
-    })
-    .catch(() => {
-      return {
-        result: 'error',
-        message: 'Please check your internet connection!'
-      };
-    });
 }

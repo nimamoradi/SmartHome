@@ -1,8 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 import { fetch } from 'fetch-awesome';
-import Config from 'react-native-config';
-import { Alert, AsyncStorage } from 'react-native';
-import { pushSingleScreenApp } from '../../navigation';
+
+import { error_missing_field } from '../../Constants';
+
 
 
 // export const fetchLogin = (username, password) => (dispatch) => {
@@ -88,59 +88,33 @@ const loginIsLoading = (bool) => {
     isLoading: bool
   };
 };
-const login = (username, password) => {
-  alert('me' + username);
+const login = (username, password, missingParam, networkError, successFetch) => {
   return (dispatch) => {
     dispatch(loginIsLoading(true));
-    //
-    // // se os campos estiverem vazios...
-    // if (!username || !password) {
-    //   dispatch(loginHasError(true));
-    //   dispatch(loginIsLoading(false));
-    //
-    //   return;
-    // }
-    // fetch(Config.API_URL + 'auth/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username: username,
-    //     password: password
-    //   })
-    // })
-    //   .then((res) => res.json())
-    //   .then(res => {
-    //
-    //     dispatch(loginIsLoading(false));
-    //
-    //     // console.log(res);
-    //     if (res.connected) {
-    //       dispatch(loginHasError(false));
-    //       dispatch(isLogged(true));
-    //       AsyncStorage.setItem('token', 'asdasdasd123'); // example
-    //       Actions.Main();
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     // console.warn(e);
-    //     dispatch(loginHasError(true));
-    //   });
 
-    wait(4000);  //7 seconds in milliseconds
-    dispatch(loginIsLoading(false));
+    if (!username || !password) {
+      dispatch(loginHasError(error_missing_field));
+      dispatch(loginIsLoading(false));
+      missingParam();
+      return;
+    }
+
+    let url = 'https://api.myjson.com/bins/19dtxc';
+    return fetch(url)
+      .then(response => response.json())
+      .then(json => {
+        dispatch(loginIsLoading(false));
+        if (json.success) {
+          dispatch(loginApp(true));
+          successFetch(json);
+        } else {
+          dispatch(receivePostsFail(reddit, json));
+          errorCallback();
+        }
+      });
   };
 };
 
-function wait(ms) {
-  var start = new Date().getTime();
-  var end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
-  }
-}
 
 export const loginApp = (user_data) => ({
   type: ActionTypes.LOGIN_APP,
