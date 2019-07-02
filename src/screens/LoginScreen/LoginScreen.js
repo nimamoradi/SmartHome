@@ -5,15 +5,16 @@ import {
   StyleSheet,
   View,
   Alert,
-  Image
+  Image, AsyncStorage
 } from 'react-native';
+import { pushSingleScreenApp } from 'src/navigation';
+import { fetch } from 'fetch-awesome';
+import Config from 'react-native-config';
 
-import LoginActions from 'src/redux/action/login';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import LoginForm from './LoginForm';
 import { vh, vw } from 'src/services/viewport';
-import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,25 +34,95 @@ const styles = StyleSheet.create({
     color: '#FFF'
   },
 });
-let context;
 
 class LoginScreen extends PureComponent {
   constructor(props) {
     super(props);
-    context = this;
+    this.state = { spinner: false };
   }
 
   login = (email, password) => {
-    context.props.doLogin(email, password);
-    alert(JSON.stringify(context.props));
+    if (email === '' || password === '') {
+      Alert.alert(
+        'missing param',
+        'password and username are required',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed')
+          },
+        ],
+        { cancelable: true },
+      );
+      return;
+    }
+    this.setState({ spinner: true });
+    fetch(Config.API_URL + 'auth/login', {
+      method: 'POST',
+      timeout: 10000,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'password': password,
+        'username': email,
+      })
+    })
+      .then((response) => {
+          this.setState({ spinner: false });
+          if (response.ok) {
+            AsyncStorage.setItem(Config.isLogin, Config.true_boolean);
+            pushSingleScreenApp();
+          } else if (response.status === 401) {
+            Alert.alert(
+              'error',
+              'wrong password or username',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => console.log('OK Pressed')
+                },
+              ],
+              { cancelable: true },
+            );
+          } else {
+            Alert.alert(
+              'error',
+              'unknown error',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => console.log('OK Pressed')
+                },
+              ],
+              { cancelable: true },
+            );
+          }
+        }
+      )
+      .catch((error) => {
+        this.setState({ spinner: false });
+        Alert.alert(
+          'error',
+          'network error',
+          [
+            {
+              text: 'OK',
+              onPress: () => console.log('OK Pressed')
+            },
+          ],
+          { cancelable: true },
+        );
+      });
+
   };
 
   render() {
-    let { hasError, isLogged, isLoading } = this.props;
     return (
       <View behavior="padding" style={styles.container}>
         <Spinner
-          visible={isLoading}
+          visible={this.state.spinner}
           textContent={'Loading...'}
           textStyle={styles.spinnerTextStyle}
         />
@@ -68,21 +139,9 @@ class LoginScreen extends PureComponent {
   }
 }
 
-LoginScreen.propTypes = {};
-
-const mapStateToProps = (state) => {
-  return {
-    isLogged: state.login.isLogged,
-    hasError: state.login.hasError,
-    isLoading: state.login.isLoading,
-  };
+LoginScreen.propTypes = {
+  getFacebookUserData: PropTypes.func.isRequired,
+  screenType: PropTypes.oneOf(['Single', 'Tab']).isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  alert(JSON.stringify(dispatch));
-  return {
-    doLogin: (username, password) => dispatch(LoginActions.login(username, password))
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-
+export default (LoginScreen);
