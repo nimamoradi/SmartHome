@@ -5,3 +5,5 @@ export const LOGIN_IS_LOADING = 'LOGIN_IS_LOADING';
 export const API = 'API';
 
 export const UPDATE_AUTH = 'UPDATE_AUTH';
+
+export const UPDATE_ROOMS = 'UPDATE_ROOMS';

@@ -35,6 +35,9 @@ import PowerSetting from 'src/components/PowerSetting';
 import Spinner from 'src/components/Spinner';
 import { fetch } from 'fetch-awesome';
 import Config from 'react-native-config';
+import RoomActions from 'src/redux/action/room';
+import { connect } from 'react-redux';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const styles = StyleSheet.create({
   flex: {
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center'
   }
 });
@@ -90,9 +93,6 @@ class SingleAppScreen extends PureComponent {
         Navigation.push(this.props.componentId, {
           component: {
             name: USER_SETTINGS,
-            passProps: {
-              userName: 'nima'
-            },
           }
         });
         break;
@@ -103,6 +103,7 @@ class SingleAppScreen extends PureComponent {
   }
 
   loadRooms() {
+    return;
     context.setState({ loading: true });
     fetch(Config.API_URL + 'homes/rooms', {
       method: 'GET',
@@ -141,20 +142,8 @@ class SingleAppScreen extends PureComponent {
         }
       })
       .then(function (res) {
+        connect.props.updateRoomsList(res.data);
         context.setState({
-          rooms: [
-            {
-              'id': 44,
-              'name': 'amin main room',
-              'icon': 'RoomGood',
-              'image': 'home/aminsroom.jpg'
-            }, {
-              'id': 41,
-              'name': 'main room 2',
-              'icon': 'RoomGood',
-              'image': 'home/aminsroom.jpg'
-            }
-          ],
           loading: false,
         });
       })
@@ -218,13 +207,15 @@ class SingleAppScreen extends PureComponent {
             :
 
             <FlatList
-              style={{ flexDirection: 'column', }}
+              horizontal={false}
+              style={{
+                marginLeft: 8 * vw,
+                flexDirection: 'column',
+              }}
               numColumns={2}
-              data={this.state.rooms}
-              extraData={this.state}
+              data={this.props.RoomsData}
               keyExtractor={this._keyExtractor}
-              renderItem={this._renderItem}
-            />
+              renderItem={this._renderItem}/>
 
           }
         </View>
@@ -236,11 +227,12 @@ class SingleAppScreen extends PureComponent {
     return item.id;
   }
 
-  _renderItem(item) {
+  _renderItem({ item }) {
     return <ControlPane
-      Color='black' button_text={item.name} onPress={() => {
-    }} Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw}
-                                           color="black"/>}/>;
+      Color='black' button_text={item.name}
+      onPress={() => {
+      }}
+      Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw} color="black"/>}/>;
   }
 
   ControlPaneToPage() {
@@ -309,8 +301,17 @@ class SingleAppScreen extends PureComponent {
   }
 }
 
-SingleAppScreen.propTypes = {
-  data: PropTypes.shape({}).isRequired
+const mapStateToProps = (state) => {
+  return {
+    UserAuthData: state.login.UserAuthData,
+    RoomsData: state.rooms.rooms,
+  };
 };
 
-export default (SingleAppScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateRoomsList: (data) => dispatch(RoomActions.updateRoomsData(data))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SingleAppScreen);
+

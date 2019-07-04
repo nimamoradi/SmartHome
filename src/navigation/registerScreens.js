@@ -49,7 +49,7 @@ function WrappedComponent(Component) {
 export default function () {
   Navigation.registerComponent(WELCOME_SCREEN, () => WrappedComponent(WelcomeScreen));
   Navigation.registerComponentWithRedux(LOGIN_SCREEN, () => WrappedComponent(LoginScreen), Provider, store);
-  Navigation.registerComponent(SINGLE_APP_SCREEN, () => WrappedComponent(SingleAppScreen));
+  Navigation.registerComponentWithRedux(SINGLE_APP_SCREEN, () => WrappedComponent(SingleAppScreen), Provider, store);
   Navigation.registerComponent(TAB1_SCREEN, () => WrappedComponent(Tab1Screen));
   Navigation.registerComponent(TAB2_SCREEN, () => WrappedComponent(Tab2Screen));
   Navigation.registerComponentWithRedux(USER_SETTINGS, () => WrappedComponent(UserSettings), Provider, store);
