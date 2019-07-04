@@ -15,6 +15,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import LoginForm from './LoginForm';
 import { vh, vw } from 'src/services/viewport';
+import LoginActions from 'src/redux/action/login';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +44,13 @@ class LoginScreen extends PureComponent {
   }
 
   login = (email, password) => {
+    this.props.doLogin({
+      auth_token: 'hello',
+      username: 'nina',
+      name: 'simone'
+    });
+    pushSingleScreenApp();
+    return;
     if (email === '' || password === '') {
       Alert.alert(
         'missing param',
@@ -144,4 +153,17 @@ LoginScreen.propTypes = {
   screenType: PropTypes.oneOf(['Single', 'Tab']).isRequired
 };
 
-export default (LoginScreen);
+const mapStateToProps = (state) => {
+  return {
+    isLogged: state.login.isLogged,
+    hasError: state.login.hasError,
+    isLoading: state.login.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    doLogin: (auth) => dispatch(LoginActions.updateAuthData(auth))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

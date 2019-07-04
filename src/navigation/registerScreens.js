@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-
+import { Provider } from 'react-redux';
 import {
   WelcomeScreen,
   LoginScreen,
@@ -31,6 +31,7 @@ import {
   CALENDER_PAGE,
   SELECT_MODAL_PAGE
 } from './Screens';
+import { store } from '../redux';
 
 
 function WrappedComponent(Component) {
@@ -47,11 +48,11 @@ function WrappedComponent(Component) {
 
 export default function () {
   Navigation.registerComponent(WELCOME_SCREEN, () => WrappedComponent(WelcomeScreen));
-  Navigation.registerComponent(LOGIN_SCREEN, () => WrappedComponent(LoginScreen));
+  Navigation.registerComponentWithRedux(LOGIN_SCREEN, () => WrappedComponent(LoginScreen), Provider, store);
   Navigation.registerComponent(SINGLE_APP_SCREEN, () => WrappedComponent(SingleAppScreen));
   Navigation.registerComponent(TAB1_SCREEN, () => WrappedComponent(Tab1Screen));
   Navigation.registerComponent(TAB2_SCREEN, () => WrappedComponent(Tab2Screen));
-  Navigation.registerComponent(USER_SETTINGS, () => WrappedComponent(UserSettings));
+  Navigation.registerComponentWithRedux(USER_SETTINGS, () => WrappedComponent(UserSettings), Provider, store);
   Navigation.registerComponent(LIGHT_SETTING_PAGE, () => WrappedComponent(LightSettingPage));
   Navigation.registerComponent(CAMERA_PAGE, () => WrappedComponent(CameraPage));
   Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));

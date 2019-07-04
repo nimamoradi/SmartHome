@@ -13,6 +13,8 @@ import { vw, vh, } from 'src/services/viewport';
 import OptionComponet from './optionComponet';
 import { SFProDisplayMedium } from '../../fonts';
 import { Strings as strings } from '../../assets/strings';
+import LoginActions from '../../redux/action/login';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   flex: {
@@ -34,7 +36,7 @@ class userSettings extends PureComponent {
           fontSize: 6 * vw,
           marginBottom: 10 * vh
         }}>
-          {this.props.userName}
+          {this.props.UserAuthData.username}
         </SFProDisplayMedium>
         <OptionComponet
           initalState={false}
@@ -82,5 +84,16 @@ class userSettings extends PureComponent {
 userSettings.propTypes = {
   userName: PropTypes.string.isRequired,
 };
+const mapStateToProps = (state) => {
+  return {
+    UserAuthData: state.login.UserAuthData,
+      };
+};
 
-export default userSettings;
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(userSettings);
+
