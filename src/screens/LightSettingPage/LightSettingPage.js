@@ -31,10 +31,48 @@ class LightSettingPage extends PureComponent {
     this.loadFunction();
   }
 
+  updateLight( device_id, degree, toggle, name ) {
+    fetch(Config.API_URL + `device/${device_id}`, {
+      method: 'PUT',
+      timeout: 1000,
+      headers: {
+        'Authorization': api_code,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'properties': [{
+          'type': 'degree',
+          'value': degree,
+        },
+          {
+            'type': 'toggle',
+            'value': toggle,
+          }, {
+            'type': 'name',
+            'value': name,
+          }]
+      })
+    })
+      .catch((error) => {
+        this.setState({ spinner: false });
+        Alert.alert(
+          'error',
+          'network error',
+          [
+            {
+              text: 'OK',
+              onPress: () => console.log('OK Pressed')
+            },
+          ],
+          { cancelable: true },
+        );
+      });
+  }
+
   loadFunction() {
     return;
     this.setState({ spinner: true });
-
     fetch(Config.API_URL + 'device', {
       method: 'GET',
       timeout: 1000,
@@ -104,8 +142,8 @@ class LightSettingPage extends PureComponent {
                                                 return element.type === 'degree';
                                               }))}
 
-          />}
-         disableVirtualization/>
+                                              updateLight={this.updateLight}/>}
+          disableVirtualization/>
 
 
       </ScrollView>
@@ -119,8 +157,8 @@ LightSettingPage.propTypes = {
 };
 const mapStateToProps = (state) => {
   return {
-    devices: state.device.devices.filter((item)=>
-      item.catogoryName ==='ligthing'
+    devices: state.device.devices.filter((item) =>
+      item.catogoryName === 'ligthing'
     ),
   };
 };

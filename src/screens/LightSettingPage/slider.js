@@ -23,7 +23,9 @@ class slider extends React.Component {
     super(props);
     this.state = {
       slider_active: props.slider_Init.value,
-      shouldShowModal: false
+      shouldShowModal: false,
+      light: this.props.light.value,
+      color: this.props.color.value
     };
   }
 
@@ -45,6 +47,8 @@ class slider extends React.Component {
             style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
             onValueChange={(val) => {
               this.setState({ slider_active: val });
+              this.props.updateLight(this.props.device_id, this.state.light,
+                val, this.state.color);
             }}
             value={this.state.slider_active}
           /> : null}
@@ -61,7 +65,12 @@ class slider extends React.Component {
                 oldColor={this.props.color.value}
                 onColorSelected={color => {
                   alert(`Color selected: ${color}`);
-                  this.setState({ shouldShowModal: false });
+                  this.setState({
+                    shouldShowModal: false,
+                    color: color
+                  });
+                  this.props.updateLight(this.props.device_id, this.state.light,
+                    this.state.slider_active, color);
                 }}
                 style={{ flex: 1 }}
               />
@@ -83,10 +92,13 @@ class slider extends React.Component {
               step={1}
               minimumValue={0}
               maximumValue={10}
-              value={this.props.light.value}
+              value={this.state.light}
               onValueChange={val => {
+                this.setState({ light: val });
               }}
               onSlidingComplete={val => {
+                this.props.updateLight(this.props.device_id, this.state.light,
+                  this.state.slider_active, this.state.color);
               }}
             />
             <MaterialCommunityIcons name='white-balance-sunny' size={vw * 8} color='#f07f00'/>
@@ -125,7 +137,7 @@ slider.propTypes = {
   light: PropTypes.isRequired,
   title: PropTypes.isRequired,
   color: PropTypes.isRequired,
-  newValueSave: PropTypes.func.isRequired,
+  updateLight: PropTypes.func.isRequired,
   slider_Init: PropTypes.isRequired,
 };
 export default slider;
