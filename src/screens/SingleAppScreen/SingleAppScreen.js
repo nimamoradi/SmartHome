@@ -107,9 +107,9 @@ class SingleAppScreen extends PureComponent {
   loadRooms() {
     return;
     context.setState({ loading: true });
-    fetch(Config.API_URL + 'homes/rooms', {
+    fetch(Config.API_URL + 'device', {
       method: 'GET',
-      timeout: 10000,
+      timeout: 1000,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

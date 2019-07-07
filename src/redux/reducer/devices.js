@@ -61,7 +61,43 @@ const initialState = {
           'updated_at': '2019-07-07 05:04:21'
         },
       ]
-    }
+    },
+    {
+      'id': 4,
+      'name': 'temperature child room',
+      'catogoryName': 'cooling',
+      'room_id': 5,
+      'properties': [
+        {
+          'type': 'degree',
+          'value': 12,
+          'updated_at': '2019-07-07 05:04:21'
+        },
+        {
+          'type': 'toggle',
+          'value': true,
+          'updated_at': '2019-07-07 05:04:21'
+        },
+      ]
+    },
+    {
+      'id': 5,
+      'name': 'temperature main room',
+      'catogoryName': 'cooling',
+      'room_id': 5,
+      'properties': [
+        {
+          'type': 'degree',
+          'value': 20,
+          'updated_at': '2019-07-07 05:04:21'
+        },
+        {
+          'type': 'toggle',
+          'value': false,
+          'updated_at': '2019-07-07 05:04:21'
+        },
+      ]
+    },
   ],
   'categories': [
     {

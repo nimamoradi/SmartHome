@@ -57,7 +57,7 @@ export default function () {
   Navigation.registerComponentWithRedux(USER_SETTINGS, () => WrappedComponent(UserSettings), Provider, store);
   Navigation.registerComponentWithRedux(LIGHT_SETTING_PAGE, () => WrappedComponent(LightSettingPage), Provider, store);
   Navigation.registerComponent(CAMERA_PAGE, () => WrappedComponent(CameraPage));
-  Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));
+  Navigation.registerComponentWithRedux(THERMO_PAGE, () => WrappedComponent(ThermoPage), Provider, store);
   Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));
   Navigation.registerComponent(SELECT_MODAL_PAGE, () => WrappedComponent(SelectModal));
   Navigation.registerComponentWithRedux(ADD_ROOM_PAGE, () => WrappedComponent(AddRoomScreen), Provider, store);
