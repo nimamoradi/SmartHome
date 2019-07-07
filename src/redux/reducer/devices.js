@@ -4,7 +4,7 @@ const initialState = {
 
   'devices': [
     {
-      ' id': 1,
+      'id': 1,
       'name': 'room1',
       'catogoryName': 'ligthing',
       'room_id': 5,
@@ -22,7 +22,7 @@ const initialState = {
       ]
     },
     {
-      ' id': 2,
+      'id': 2,
       'name': 'room2',
       'catogoryName': 'ligthing',
       'room_id': 5,
@@ -40,7 +40,7 @@ const initialState = {
       ]
     },
     {
-      ' id': 3,
+      'id': 3,
       'name': 'room3',
       'catogoryName': 'ligthing',
       'room_id': 5,
@@ -134,10 +134,38 @@ export const devices = (state = initialState, action) => {
       });
 
     case ActionTypes.UPDATE_DEVICE_PROPERTY:
-      return Object.assign({}, state, {
-        device_types: payload.device_types
-      });
+      return {
+        ...state,
+        devices: state.devices.map(
+          (content) => content.id === payload.device_id ? {
+              ...content,
+              properties: content.properties.map((item) => {
+                switch (item.type) {
+                  case 'degree':
+                    return {
+                      ...item,
+                      value: payload.degree
+                    };
+                  case 'toggle':
+                    return {
+                      ...item,
+                      value: payload.degree
+                    };
+                  case 'name':
+                    return {
+                      ...item,
+                      value: payload.name.value
+                    };
+                  default:
+                    return item;
+                }
 
+
+              })
+            }
+            : content
+        )
+      };
     default:
       return state;
   }

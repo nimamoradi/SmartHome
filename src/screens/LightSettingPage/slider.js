@@ -25,7 +25,7 @@ class slider extends React.Component {
       slider_active: props.slider_Init.value,
       shouldShowModal: false,
       light: this.props.light.value,
-      color: this.props.color.value
+      color: this.props.color
     };
   }
 
@@ -61,8 +61,8 @@ class slider extends React.Component {
 
               }}>
               <TriangleColorPicker
-                defaultColor={this.props.color.value}
-                oldColor={this.props.color.value}
+                defaultColor={this.state.color}
+                oldColor={this.state.color}
                 onColorSelected={color => {
                   alert(`Color selected: ${color}`);
                   this.setState({
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
 });
 
 slider.propTypes = {
+  device_id:PropTypes.isRequired,
   light: PropTypes.isRequired,
   title: PropTypes.isRequired,
   color: PropTypes.isRequired,

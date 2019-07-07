@@ -23,15 +23,24 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+let context;
 
 class LightSettingPage extends PureComponent {
 
   constructor(props) {
     super(props);
     this.loadFunction();
+    context = this;
   }
 
-  updateLight( device_id, degree, toggle, name ) {
+  updateLight(device_id, degree, toggle, name) {
+    context.props.updateDeviceProperty({
+      device_id: device_id,
+      degree: degree,
+      toggle: toggle,
+      name: name
+    });
+    return;
     fetch(Config.API_URL + `device/${device_id}`, {
       method: 'PUT',
       timeout: 1000,
@@ -131,18 +140,20 @@ class LightSettingPage extends PureComponent {
         <FlatList
           keyExtractor={(item) => item.id}
           data={this.props.devices}
-          renderItem={({ item }) => <MySlider title={item.name}
-                                              slider_Init={(item.properties.find((element) => {
-                                                return element.type === 'toggle';
-                                              }))}
-                                              color={(item.properties.find((element) => {
-                                                return element.type === 'name';
-                                              }))}
-                                              light={(item.properties.find((element) => {
-                                                return element.type === 'degree';
-                                              }))}
+          renderItem={({ item }) => <MySlider
+            device_id={item.id}
+            title={item.name}
+            slider_Init={(item.properties.find((element) => {
+              return element.type === 'toggle';
+            }))}
+            color={(item.properties.find((element) => {
+              return element.type === 'name';
+            }))}
+            light={(item.properties.find((element) => {
+              return element.type === 'degree';
+            }))}
 
-                                              updateLight={this.updateLight}/>}
+            updateLight={this.updateLight}/>}
           disableVirtualization/>
 
 
