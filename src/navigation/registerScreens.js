@@ -55,7 +55,7 @@ export default function () {
   Navigation.registerComponent(TAB1_SCREEN, () => WrappedComponent(Tab1Screen));
   Navigation.registerComponent(TAB2_SCREEN, () => WrappedComponent(Tab2Screen));
   Navigation.registerComponentWithRedux(USER_SETTINGS, () => WrappedComponent(UserSettings), Provider, store);
-  Navigation.registerComponent(LIGHT_SETTING_PAGE, () => WrappedComponent(LightSettingPage));
+  Navigation.registerComponentWithRedux(LIGHT_SETTING_PAGE, () => WrappedComponent(LightSettingPage), Provider, store);
   Navigation.registerComponent(CAMERA_PAGE, () => WrappedComponent(CameraPage));
   Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));
   Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));

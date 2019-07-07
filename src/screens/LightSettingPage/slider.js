@@ -22,7 +22,7 @@ class slider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      slider_active: props.slider_Init,
+      slider_active: props.slider_Init.value,
       shouldShowModal: false
     };
   }
@@ -32,59 +32,65 @@ class slider extends React.Component {
     return (
       <View style={styles.col}>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => {
-            this.setState({ shouldShowModal: !this.state.shouldShowModal });
-          }}>
-            <Ionicons name='ios-color-palette' size={vw * 8}/>
-          </TouchableOpacity>
+          {this.props.color ?
+            <TouchableOpacity onPress={() => {
+              this.setState({ shouldShowModal: !this.state.shouldShowModal });
+            }}>
+              <Ionicons name='ios-color-palette' size={vw * 8}/>
+            </TouchableOpacity> : null}
           <SFProDisplayRegular style={{ fontSize: 5 * vw }}>
             {this.props.title}
           </SFProDisplayRegular>
-          <Switch
+          {this.props.slider_Init ? <Switch
             style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
             onValueChange={(val) => {
               this.setState({ slider_active: val });
             }}
             value={this.state.slider_active}
-          />
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.shouldShowModal}
-            onRequestClose={() => {
+          /> : null}
+          {this.props.color ?
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.shouldShowModal}
+              onRequestClose={() => {
 
-            }}>
-            <TriangleColorPicker
-              onColorSelected={color => {
-                alert(`Color selected: ${color}`);
-                this.setState({ shouldShowModal: false });
+              }}>
+              <TriangleColorPicker
+                defaultColor={this.props.color.value}
+                oldColor={this.props.color.value}
+                onColorSelected={color => {
+                  alert(`Color selected: ${color}`);
+                  this.setState({ shouldShowModal: false });
+                }}
+                style={{ flex: 1 }}
+              />
+            </Modal>
+            : null}
+        </View>
+        {this.props.light ?
+          <View style={styles.flex}>
+            <Icon name='md-moon' size={vw * 8} color='#e1ee15'/>
+
+            <Slider
+              minimumTrackTintColor='#2196f3'
+              maximumTrackTintColor='#8bc34a'
+              thumbTintColor='#2196f3'
+              style={{
+                width: 70 * vw,
+                height: 10 * vh,
               }}
-              style={{ flex: 1 }}
+              step={1}
+              minimumValue={0}
+              maximumValue={10}
+              value={this.props.light.value}
+              onValueChange={val => {
+              }}
+              onSlidingComplete={val => {
+              }}
             />
-          </Modal>
-        </View>
-        <View style={styles.flex}>
-          <Icon name='md-moon' size={vw * 8} color='#e1ee15'/>
-
-          <Slider
-            minimumTrackTintColor='#2196f3'
-            maximumTrackTintColor='#8bc34a'
-            thumbTintColor='#2196f3'
-            style={{
-              width: 70 * vw,
-              height: 10 * vh,
-            }}
-            step={1}
-            minimumValue={0}
-            maximumValue={10}
-            value={this.props.light}
-            onValueChange={val => {
-            }}
-            onSlidingComplete={val => {
-            }}
-          />
-          <MaterialCommunityIcons name='white-balance-sunny' size={vw * 8} color='#f07f00'/>
-        </View>
+            <MaterialCommunityIcons name='white-balance-sunny' size={vw * 8} color='#f07f00'/>
+          </View> : null}
       </View>);
   }
 }
@@ -116,9 +122,10 @@ const styles = StyleSheet.create({
 });
 
 slider.propTypes = {
-  light: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+  light: PropTypes.isRequired,
+  title: PropTypes.isRequired,
+  color: PropTypes.isRequired,
   newValueSave: PropTypes.func.isRequired,
-  slider_Init: PropTypes.bool.isRequired,
+  slider_Init: PropTypes.isRequired,
 };
 export default slider;

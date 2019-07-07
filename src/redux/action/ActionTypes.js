@@ -8,3 +8,6 @@ export const UPDATE_AUTH = 'UPDATE_AUTH';
 
 export const UPDATE_ROOMS = 'UPDATE_ROOMS';
 export const ADD_ROOMS = 'ADD_ROOMS';
+
+export const LOAD_DEVICES = 'LOAD_DEVICES';
+export const UPDATE_DEVICE_PROPERTY = 'UPDATE_DEVICE_PROPERTY';

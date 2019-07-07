@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  FlatList
 } from 'react-native';
 
 import MySlider from './slider';
-import { ColorPicker } from 'react-native-color-picker'
+import DeviceActions from 'src/redux/action/device';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   flex: {
@@ -34,9 +36,24 @@ class LightSettingPage extends PureComponent {
           style={{ alignSelf: 'center' }}
           source={require('assets/images/lamp.png')}
         />
-        <MySlider light={10} title='Bedroom' slider_Init={true}/>
-        <MySlider light={5} title='Livingroom' slider_Init={true}/>
-        <MySlider light={0} title='Kichen' slider_Init={false}/>
+        <FlatList
+          keyExtractor={(item)=>item.id}
+          data={this.props.devices}
+          renderItem={({ item }) => <MySlider title={item.name}
+                                              slider_Init={(item.properties.find((element) => {
+                                                return element.type === 'toggle';
+                                              }))}
+                                              color={(item.properties.find((element) => {
+                                                return element.type === 'name';
+                                              }))}
+                                              light={(item.properties.find((element) => {
+                                                return element.type === 'degree';
+                                              }))}
+
+          />}
+        />
+
+
       </ScrollView>
     );
   }
@@ -46,5 +63,15 @@ class LightSettingPage extends PureComponent {
 LightSettingPage.propTypes = {
   data: PropTypes.shape({}).isRequired
 };
+const mapStateToProps = (state) => {
+  return {
+    devices: state.device.devices,
+  };
+};
 
-export default (LightSettingPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateDeviceProperty: (data) => dispatch(DeviceActions.updateDeviceProperty(data))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LightSettingPage);
