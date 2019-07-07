@@ -4,12 +4,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
-  View,
+  ScrollView,
   Image
 } from 'react-native';
 
 import MySlider from './slider';
-
+import { ColorPicker } from 'react-native-color-picker'
 
 const styles = StyleSheet.create({
   flex: {
@@ -27,7 +27,8 @@ class LightSettingPage extends PureComponent {
 
   render() {
     return (
-      <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         style={styles.flex}>
         <Image
           style={{ alignSelf: 'center' }}
@@ -36,7 +37,7 @@ class LightSettingPage extends PureComponent {
         <MySlider light={10} title='Bedroom' slider_Init={true}/>
         <MySlider light={5} title='Livingroom' slider_Init={true}/>
         <MySlider light={0} title='Kichen' slider_Init={false}/>
-      </View>
+      </ScrollView>
     );
   }
 

@@ -5,18 +5,26 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Slider, Switch
+  Slider,
+  Switch,
+  Modal,
+  TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { vw, vh } from 'src/services/viewport';
 import { SFProDisplayRegular } from 'src/fonts';
+import { TriangleColorPicker } from 'react-native-color-picker';
 
 class slider extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { slider_active: props.slider_Init };
+    this.state = {
+      slider_active: props.slider_Init,
+      shouldShowModal: false
+    };
   }
 
 
@@ -24,6 +32,11 @@ class slider extends React.Component {
     return (
       <View style={styles.col}>
         <View style={styles.row}>
+          <TouchableOpacity onPress={() => {
+            this.setState({ shouldShowModal: !this.state.shouldShowModal });
+          }}>
+            <Ionicons name='ios-color-palette' size={vw * 8}/>
+          </TouchableOpacity>
           <SFProDisplayRegular style={{ fontSize: 5 * vw }}>
             {this.props.title}
           </SFProDisplayRegular>
@@ -34,6 +47,21 @@ class slider extends React.Component {
             }}
             value={this.state.slider_active}
           />
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.shouldShowModal}
+            onRequestClose={() => {
+
+            }}>
+            <TriangleColorPicker
+              onColorSelected={color => {
+                alert(`Color selected: ${color}`);
+                this.setState({ shouldShowModal: false });
+              }}
+              style={{ flex: 1 }}
+            />
+          </Modal>
         </View>
         <View style={styles.flex}>
           <Icon name='md-moon' size={vw * 8} color='#e1ee15'/>
