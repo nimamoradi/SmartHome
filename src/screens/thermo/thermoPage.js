@@ -8,13 +8,14 @@ import {
   Text,
   Image,
   Picker,
-  Switch, AsyncStorage, Alert,
+  Switch, TouchableOpacity, Alert,
 } from 'react-native';
 
 import CircleSlider from './CircleSlider';
 import { vw, vh } from 'src/services/viewport';
 import { Strings } from 'src/assets/strings';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DeviceActions from 'src/redux/action/device';
 import { connect } from 'react-redux';
 import { fetch } from 'fetch-awesome';
@@ -50,13 +51,19 @@ class thermoPage extends PureComponent {
     this.state = {
       temperature: this.props.devices[0].properties.find(o => o.type === 'degree').value * 5,
       inside: 23,
-      select_id: 0,
+      select_id: this.props.devices[0].id,
       isDeviceOn: true
     };
     context = this;
   }
 
   updateTermal(device_id) {
+    context.props.updateDeviceProperty({
+      device_id: context.state.select_id,
+      degree: context.state.temperature / 5,
+      toggle: context.state.isDeviceOn,
+    });
+    return;
     fetch(Config.API_URL + `device/${device_id}`, {
       method: 'PUT',
       timeout: 1000,
@@ -105,11 +112,21 @@ class thermoPage extends PureComponent {
             width: 100 * vw,
             justifyContent: 'flex-end'
           }}>
+          <TouchableOpacity
+            onPress={() => context.updateTermal(context.state.select_id)}
+            style={{
+              position: 'absolute',
+              top: vh,
+              margin: 4 * vw,
+            }}>
+            <MaterialIcons name='done'
+                           size={12 * vw}
+                           color="green"/>
+          </TouchableOpacity>
           <Switch
             style={{ margin: 4 * vw, }}
             onValueChange={(val) => {
-              this.setState({ isDeviceOn: val })
-                .then(() => context.updateTermal(context.props.devices[itemIndex].id));
+              this.setState({ isDeviceOn: val });
             }}
             value={this.state.isDeviceOn}
           />
@@ -125,8 +142,8 @@ class thermoPage extends PureComponent {
         </View>
         <CircleSlider
           onValueChange={(x) =>
-            this.setState({ temperature: x })
-              .then(() => context.updateTermal(context.props.devices[itemIndex].id))
+            context.setState({ temperature: x })
+
           }
           value={this.state.temperature}
           min={30}
