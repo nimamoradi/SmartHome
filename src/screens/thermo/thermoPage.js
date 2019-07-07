@@ -57,11 +57,11 @@ class thermoPage extends PureComponent {
   }
 
   updateTermal(device_id) {
-    fetch(Config.API_URL + 'device/', {
+    fetch(Config.API_URL + `device/${device_id}`, {
       method: 'PUT',
       timeout: 1000,
       headers: {
-        'Authorization': '{$api_code}',
+        'Authorization': api_code,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
