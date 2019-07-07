@@ -22,7 +22,7 @@ import {
   LIGHT_SETTING_PAGE,
   THERMO_PAGE,
   USER_SETTINGS,
-  SELECT_MODAL_PAGE, pushSingleScreenApp,
+  SELECT_MODAL_PAGE, pushSingleScreenApp, ADD_ROOM_PAGE,
 } from 'src/navigation';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
@@ -38,6 +38,8 @@ import Config from 'react-native-config';
 import RoomActions from 'src/redux/action/room';
 import { connect } from 'react-redux';
 import Entypo from 'react-native-vector-icons/Entypo';
+import FloatActionButton from '../../components/floatingActionButton';
+import { AddRoomScreen } from '../index';
 
 const styles = StyleSheet.create({
   flex: {
@@ -184,7 +186,8 @@ class SingleAppScreen extends PureComponent {
       </View>;
     } else {
       return (
-        <View>
+        <View style={{ flex: 1 }}>
+          <FloatActionButton onPress={this.toAddRoomScreen}/>
           <View style={{
             flexDirection: 'row',
             justifyContent: 'space-evenly',
@@ -259,6 +262,17 @@ class SingleAppScreen extends PureComponent {
         .then(() => context.setState({ shouldNavigate: true }));
       context.setState({ shouldNavigate: false });
     }
+  }
+
+  toAddRoomScreen() {
+    Navigation.push(context.props.componentId, {
+      component: {
+        name: ADD_ROOM_PAGE,
+        passProps: { outside: 32 },
+      }
+    })
+      .then(() => context.setState({ shouldNavigate: true }));
+    context.setState({ shouldNavigate: false });
   }
 
   toCardSelect() {

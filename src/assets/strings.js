@@ -25,4 +25,7 @@ export const Strings = {
 
   appliances: 'select appliances',
 
+  rname:'name of the room',
+  rlocation:'select place of the room',
+
 };

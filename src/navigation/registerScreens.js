@@ -14,7 +14,8 @@ import {
   CameraPage,
   CalenderPage,
   ThermoPage,
-  SelectModal
+  SelectModal,
+  AddRoomScreen
 } from 'src/screens';
 
 
@@ -29,7 +30,8 @@ import {
   CAMERA_PAGE,
   THERMO_PAGE,
   CALENDER_PAGE,
-  SELECT_MODAL_PAGE
+  SELECT_MODAL_PAGE,
+  ADD_ROOM_PAGE,
 } from './Screens';
 import { store } from '../redux';
 
@@ -37,12 +39,12 @@ import { store } from '../redux';
 function WrappedComponent(Component) {
   return function inject(props) {
     const EnhancedComponent = () => (
-        <Component
-          {...props}
-        />
+      <Component
+        {...props}
+      />
     );
 
-    return <EnhancedComponent />;
+    return <EnhancedComponent/>;
   };
 }
 
@@ -58,5 +60,6 @@ export default function () {
   Navigation.registerComponent(THERMO_PAGE, () => WrappedComponent(ThermoPage));
   Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));
   Navigation.registerComponent(SELECT_MODAL_PAGE, () => WrappedComponent(SelectModal));
+  Navigation.registerComponentWithRedux(ADD_ROOM_PAGE, () => WrappedComponent(AddRoomScreen), Provider, store);
   console.info('All screens have been registered...');
 }

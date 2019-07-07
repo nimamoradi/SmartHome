@@ -53,6 +53,11 @@ export const rooms = (state = initialState, action) => {
       return Object.assign({}, state, {
         roomsData: payload,
       });
+    case ActionTypes.ADD_ROOMS:
+      return {
+        ...state,
+        roomsData: [...state.roomsData, payload]
+      };
     default:
       return state;
   }

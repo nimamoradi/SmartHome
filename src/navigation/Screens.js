@@ -11,3 +11,4 @@ export const CAMERA_PAGE = 'SmartHome.cameraPage';
 export const THERMO_PAGE = 'SmartHome.ThermoPage';
 export const CALENDER_PAGE = 'SmartHome.CalenderPage';
 export const SELECT_MODAL_PAGE = 'SmartHome.SelectModal';
+export const ADD_ROOM_PAGE = 'SmartHome.AddRoomScreen';

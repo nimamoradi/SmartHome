@@ -7,3 +7,4 @@ export const API = 'API';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
 
 export const UPDATE_ROOMS = 'UPDATE_ROOMS';
+export const ADD_ROOMS = 'ADD_ROOMS';
