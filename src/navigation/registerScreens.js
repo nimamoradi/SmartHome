@@ -15,7 +15,8 @@ import {
   CalenderPage,
   ThermoPage,
   SelectModal,
-  AddRoomScreen
+  AddRoomScreen,
+  showRoom
 } from 'src/screens';
 
 
@@ -32,6 +33,7 @@ import {
   CALENDER_PAGE,
   SELECT_MODAL_PAGE,
   ADD_ROOM_PAGE,
+  SHOW_ROOM
 } from './Screens';
 import { store } from '../redux';
 
@@ -61,5 +63,6 @@ export default function () {
   Navigation.registerComponent(CALENDER_PAGE, () => WrappedComponent(CalenderPage));
   Navigation.registerComponent(SELECT_MODAL_PAGE, () => WrappedComponent(SelectModal));
   Navigation.registerComponentWithRedux(ADD_ROOM_PAGE, () => WrappedComponent(AddRoomScreen), Provider, store);
+  Navigation.registerComponentWithRedux(SHOW_ROOM, () => WrappedComponent(showRoom), Provider, store);
   console.info('All screens have been registered...');
 }

@@ -10,3 +10,4 @@ export { default as ThermoPage } from './thermo/thermoPage';
 export { default as CalenderPage } from './calender/CalenderPage';
 export { default as SelectModal } from './selectModal/selectModal';
 export { default as AddRoomScreen } from './room/addRoomScreen';
+export { default as showRoom } from './room/showRoom';

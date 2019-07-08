@@ -12,3 +12,4 @@ export const THERMO_PAGE = 'SmartHome.ThermoPage';
 export const CALENDER_PAGE = 'SmartHome.CalenderPage';
 export const SELECT_MODAL_PAGE = 'SmartHome.SelectModal';
 export const ADD_ROOM_PAGE = 'SmartHome.AddRoomScreen';
+export const SHOW_ROOM = 'SmartHome.SHOW_ROOM';

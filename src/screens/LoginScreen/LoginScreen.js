@@ -65,6 +65,7 @@ class LoginScreen extends PureComponent {
       );
       return;
     }
+    return;
     this.setState({ spinner: true });
     fetch(Config.API_URL + 'auth/login', {
       method: 'POST',

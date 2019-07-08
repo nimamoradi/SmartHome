@@ -12,7 +12,7 @@ import {
 import MySlider from './slider';
 import DeviceActions from 'src/redux/action/device';
 import { connect } from 'react-redux';
-import { fetch } from 'fetch-awesome';
+
 import Config from 'react-native-config';
 import { pushSingleScreenApp } from '../../navigation';
 
@@ -88,7 +88,6 @@ class LightSettingPage extends PureComponent {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-
       },
 
     })
@@ -176,7 +175,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateDeviceProperty: (data) => dispatch(DeviceActions.updateDeviceProperty(data))
+    updateDeviceProperty: (data) => dispatch(DeviceActions.updateDeviceProperty(data)),
+    loadDeviceProperty: (data) => dispatch(DeviceActions.loadDeviceProperty(data))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LightSettingPage);

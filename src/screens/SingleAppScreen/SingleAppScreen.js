@@ -22,7 +22,7 @@ import {
   LIGHT_SETTING_PAGE,
   THERMO_PAGE,
   USER_SETTINGS,
-  SELECT_MODAL_PAGE, pushSingleScreenApp, ADD_ROOM_PAGE,
+  SELECT_MODAL_PAGE, pushSingleScreenApp, ADD_ROOM_PAGE, SHOW_ROOM,
 } from 'src/navigation';
 import ControlPane from './controlPane';
 import { Strings as strings } from 'src/assets/strings';
@@ -33,7 +33,7 @@ import Camera from 'src/components/Camera';
 import Light from 'src/components/Light';
 import PowerSetting from 'src/components/PowerSetting';
 import Spinner from 'src/components/Spinner';
-import { fetch } from 'fetch-awesome';
+// import { fetch } from 'fetch-awesome';
 import Config from 'react-native-config';
 import RoomActions from 'src/redux/action/room';
 import { connect } from 'react-redux';
@@ -63,7 +63,7 @@ class SingleAppScreen extends PureComponent {
     this.state = {
       pageSelect: true,
       shouldNavigate: true,
-      loading: true,
+      loading: false,
       rooms: [],
       dataReady: false
     };
@@ -72,7 +72,10 @@ class SingleAppScreen extends PureComponent {
     this.firstPage = this.firstPage.bind(this);
     this.secondPage = this.secondPage.bind(this);
 
-    this.loadRooms();
+  }
+
+  componentDidMount() {
+    context.loadRooms()
   }
 
   firstPage() {
@@ -105,9 +108,9 @@ class SingleAppScreen extends PureComponent {
   }
 
   loadRooms() {
-    return;
+
     context.setState({ loading: true });
-    fetch(Config.API_URL + 'device', {
+    fetch(Config.API_URL + 'room', {
       method: 'GET',
       timeout: 1000,
       headers: {
@@ -118,9 +121,6 @@ class SingleAppScreen extends PureComponent {
     })
       .then((response) => {
         if (response.status === 200) {
-          context.setState({
-            dataReady: true,
-          });
           return response.json();
         } else {
           context.setState({
@@ -144,47 +144,15 @@ class SingleAppScreen extends PureComponent {
         }
       })
       .then(function (res) {
-        connect.props.updateRoomsList(res.data);
-        context.setState({
-          loading: false,
-        });
-      })
-
-      .catch((error) => {
-        this.setState({ loading: false });
-        Alert.alert(
-          'error',
-          'network error',
-          [
-            {
-              text: 'Exit',
-              onPress: () => BackHandler.exitApp()
-            },
-            {
-              text: 'retry',
-              onPress: () => context.loadRooms()
-            },
-          ],
-          { cancelable: false },
-        );
+        context.props.updateRoomsList(res.data);
       });
+
+
   }
 
   //
   render() {
-    if (this.state.dataReady) {
-      return <View style={{
-        flex: 1,
-        width: '100%',
-        height: '100%',
-      }}>
-        <Spinner
-          loading={this.state.loading}
-          textLabel={'Loading...'}
-          textStyle={{ color: '#FFF' }}
-        />
-      </View>;
-    } else {
+
       return (
         <View style={{ flex: 1 }}>
           <FloatActionButton onPress={this.toAddRoomScreen}/>
@@ -223,7 +191,7 @@ class SingleAppScreen extends PureComponent {
           }
         </View>
       );
-    }
+
   }
 
   _keyExtractor(item) {
@@ -234,6 +202,7 @@ class SingleAppScreen extends PureComponent {
     return <ControlPane
       Color='black' button_text={item.name}
       onPress={() => {
+        context.gotoRoom(item.id);
       }}
       Icon={() => <MaterialCommunityIcons name="sofa" size={16 * vw} color="black"/>}/>;
   }
@@ -262,6 +231,17 @@ class SingleAppScreen extends PureComponent {
         .then(() => context.setState({ shouldNavigate: true }));
       context.setState({ shouldNavigate: false });
     }
+  }
+
+  gotoRoom(id) {
+    Navigation.push(context.props.componentId, {
+      component: {
+        name: SHOW_ROOM,
+        passProps: { room_id: id },
+      }
+    })
+      .then(() => context.setState({ shouldNavigate: true }));
+    context.setState({ shouldNavigate: false });
   }
 
   toAddRoomScreen() {

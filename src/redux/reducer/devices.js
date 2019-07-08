@@ -129,8 +129,11 @@ export const devices = (state = initialState, action) => {
   switch (type) {
     case ActionTypes.LOAD_DEVICES:
       return Object.assign({}, state, {
-        device_types: payload.device_types,
-        categories: payload.categories,
+        devices: payload.map((item) => {
+          item.room_id = item.room.id;
+          return item;
+        }),
+
       });
 
     case ActionTypes.UPDATE_DEVICE_PROPERTY:
@@ -166,6 +169,7 @@ export const devices = (state = initialState, action) => {
             : content
         )
       };
+
     default:
       return state;
   }

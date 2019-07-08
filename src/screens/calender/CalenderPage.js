@@ -82,7 +82,7 @@ class calenderPage extends PureComponent {
         <Calendar
           onDayPress={(day) => {
             this.setState({ date: day });
-            alert(JSON.stringify(day));
+
           }}
           hideExtraDays={true}
           style={{
