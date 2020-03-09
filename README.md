@@ -12,6 +12,7 @@ A starter boilerplate for a mobile app using React Native and React Native Navig
         <img width="20%" src="img/2.png">
         <img width="20%" src="img/3.png">
         <img width="20%" src="img/4.png">
+         <img width="20%" src="img/5.png">
     </p>
 ## Requirements
 Before start, make sure you installed:
