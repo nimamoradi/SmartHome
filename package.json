@@ -13,7 +13,7 @@
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "16.6.3",
-    "react-native": "0.58.5",
+    "react-native": "0.70.4",
     "react-native-calendars": "^1.66.0",
     "react-native-chart-kit": "^2.6.1",
     "react-native-color-picker": "^0.4.1",
